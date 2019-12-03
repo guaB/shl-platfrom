@@ -1,4 +1,4 @@
-package com.shl.oauth2.model;
+package com.shl.common.model;
 
 import lombok.Data;
 
