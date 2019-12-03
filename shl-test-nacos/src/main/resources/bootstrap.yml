@@ -1,0 +1,23 @@
+spring:
+  cloud:
+    nacos:
+      config:
+        server-addr: 192.168.73.100:8848
+        namespace: be0bff06-5043-4292-aace-d495d13774c5
+        group: shl_cloud
+      discovery:
+        server-addr: 192.168.73.100:8848
+        namespace: be0bff06-5043-4292-aace-d495d13774c5
+  application:
+    name: test-server
+server:
+  port: 2000
+management:
+  endpoints:
+    web:
+      base-path: /actuator
+      exposure:
+        include: health,info,env,metrics,prometheus
+  metrics:
+    tags:
+      application: ${spring.application.name}

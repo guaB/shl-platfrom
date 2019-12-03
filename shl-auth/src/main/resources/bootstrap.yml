@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: shl_oauth2
+  cloud:
+    nacos:
+      config:
+        server-addr: 192.168.73.100:8848
+        namespace: be0bff06-5043-4292-aace-d495d13774c5
+        group: shl_cloud
+        file-extension: yml
+        ext-config:
+          - data-id: common.yml
+            group: shl_cloud
+            refresh: true
+      discovery:
+        server-addr: 192.168.73.100:8848
+        namespace: be0bff06-5043-4292-aace-d495d13774c5
+  security:
+    user:
+      password: admin
+      name: admin
