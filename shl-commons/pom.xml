@@ -13,6 +13,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>shl-common-core</module>
+        <module>shl-auth-client-starter</module>
     </modules>
     
 

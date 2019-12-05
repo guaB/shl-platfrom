@@ -1,4 +1,4 @@
-package com.shl.oauth2.openid;
+package com.shl.common.token;
 
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
@@ -7,18 +7,18 @@ import org.springframework.security.core.SpringSecurityCoreVersion;
 import java.util.Collection;
 
 /**
- * @description: openid生成token
+ * @description:
  * @author: songhonglei
  * @date: 2019-12-03
  */
-public class OpenIdAuthenticationToken extends AbstractAuthenticationToken {
-
+public class MobileAuthenticationToken extends AbstractAuthenticationToken {
     private static final long serialVersionUID = SpringSecurityCoreVersion.SERIAL_VERSION_UID;
 
     // ~ Instance fields
     // ================================================================================================
 
     private final Object principal;
+    private Object credentials;
 
     // ~ Constructors
     // ===================================================================================================
@@ -29,9 +29,10 @@ public class OpenIdAuthenticationToken extends AbstractAuthenticationToken {
      * will return <code>false</code>.
      *
      */
-    public OpenIdAuthenticationToken(String openId) {
+    public MobileAuthenticationToken(String mobile, String password) {
         super(null);
-        this.principal = openId;
+        this.principal = mobile;
+        this.credentials = password;
         setAuthenticated(false);
     }
 
@@ -44,10 +45,11 @@ public class OpenIdAuthenticationToken extends AbstractAuthenticationToken {
      * @param principal
      * @param authorities
      */
-    public OpenIdAuthenticationToken(Object principal,
+    public MobileAuthenticationToken(Object principal, Object credentials,
                                      Collection<? extends GrantedAuthority> authorities) {
         super(authorities);
         this.principal = principal;
+        this.credentials = credentials;
         super.setAuthenticated(true);
     }
 
@@ -56,7 +58,7 @@ public class OpenIdAuthenticationToken extends AbstractAuthenticationToken {
 
     @Override
     public Object getCredentials() {
-        return null;
+        return this.credentials;
     }
 
     @Override

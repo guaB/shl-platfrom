@@ -1,5 +1,6 @@
 package com.shl.oauth2.mobile;
 
+import com.shl.common.token.MobileAuthenticationToken;
 import com.shl.oauth2.service.ShlUserDetailsService;
 import lombok.Setter;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -22,7 +23,7 @@ public class MobileAuthenticationProvider implements AuthenticationProvider {
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        MobileAuthenticationToken authenticationToken = (MobileAuthenticationToken)authentication;
+        MobileAuthenticationToken authenticationToken = (MobileAuthenticationToken) authentication;
         String mobile = (String) authenticationToken.getPrincipal();
         String password = (String) authenticationToken.getCredentials();
         UserDetails user = userDetailsService.loadUserByMobile(mobile);

@@ -58,6 +58,11 @@
             <groupId>org.springframework.social</groupId>
             <artifactId>spring-social-security</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.shl</groupId>
+            <artifactId>shl-common-core</artifactId>
+            <version>0.1-SNAPSHOT</version>
+        </dependency>
 
     </dependencies>
 

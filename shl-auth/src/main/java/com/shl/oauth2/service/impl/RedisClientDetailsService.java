@@ -1,5 +1,6 @@
 package com.shl.oauth2.service.impl;
 
+import com.shl.common.constant.SecurityConstants;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.oauth2.common.exceptions.InvalidClientException;
@@ -88,7 +89,7 @@ public class RedisClientDetailsService extends JdbcClientDetailsService {
     }
 
     private String clientRedisKey(String clientId) {
-        return SecurityConstants.CACHE_CLIENT_KEY.msg() + ":" + clientId;
+        return SecurityConstants.CACHE_CLIENT_KEY.getMsg() + ":" + clientId;
 
     }
 

@@ -14,10 +14,11 @@ public class DefaultPasswordConfig {
 
     /**
      * 装配BCryptPasswordEncoder用户密码的匹配
+     *
      * @return
      */
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 }

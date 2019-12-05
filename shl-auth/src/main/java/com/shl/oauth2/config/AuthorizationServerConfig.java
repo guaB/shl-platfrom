@@ -25,7 +25,6 @@ import javax.annotation.Resource;
 @Configuration
 @EnableAuthorizationServer
 @AutoConfigureAfter(AuthorizationServerEndpointsConfigurer.class)
-
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
 
     @Autowired

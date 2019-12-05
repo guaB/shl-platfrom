@@ -1,6 +1,6 @@
 package com.shl.oauth2.service.impl;
 
-import com.shl.oauth2.model.LoginAppUser;
+import com.shl.common.model.LoginAppUser;
 import com.shl.oauth2.service.ShlUserDetailsService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.DisabledException;

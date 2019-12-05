@@ -11,6 +11,7 @@ public enum  SecurityConstants {
      * 缓存client的redis key，这里是hash结构存储
      */
     CACHE_CLIENT_KEY("oauth_client_details"),
+
     TENANT_HEADER(""),
     ;
     private String msg;
