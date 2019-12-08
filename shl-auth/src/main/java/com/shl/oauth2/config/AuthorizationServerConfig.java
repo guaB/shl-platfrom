@@ -13,9 +13,14 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.code.RandomValueAuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.error.WebResponseExceptionTranslator;
+import org.springframework.security.oauth2.provider.token.TokenEnhancer;
+import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 
 import javax.annotation.Resource;
+import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * @description:
@@ -27,11 +32,20 @@ import javax.annotation.Resource;
 @AutoConfigureAfter(AuthorizationServerEndpointsConfigurer.class)
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
 
+    /**
+     * 注入authenticationManager 来支持 password grant type
+     */
     @Autowired
     private  AuthenticationManager authenticationManager;
 
     @Autowired
     private TokenStore tokenStore;
+
+    @Autowired(required = false)
+    private JwtAccessTokenConverter jwtAccessTokenConverter;
+
+    @Autowired(required = false)
+    private TokenEnhancer tokenEnhancer;
 
     @Resource
     private UserDetailsService userDetailsService;
@@ -50,6 +64,15 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
      */
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
+        if (!Objects.isNull(jwtAccessTokenConverter)){
+            if (!Objects.isNull(tokenEnhancer)){
+                TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
+                tokenEnhancerChain.setTokenEnhancers(Arrays.asList(tokenEnhancer, jwtAccessTokenConverter));
+                endpoints.tokenEnhancer(tokenEnhancerChain);
+            }else {
+                endpoints.accessTokenConverter(jwtAccessTokenConverter);
+            }
+        }
         endpoints.tokenStore(tokenStore)
                 .authenticationManager(authenticationManager)
                 .userDetailsService(userDetailsService)

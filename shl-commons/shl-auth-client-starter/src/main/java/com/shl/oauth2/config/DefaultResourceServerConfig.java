@@ -26,7 +26,7 @@ public class DefaultResourceServerConfig extends ResourceServerConfigurerAdapter
     @Autowired
     private TokenStore tokenStore;
 
-    @Autowired
+    @Resource
     private AuthenticationEntryPoint authenticationEntryPoint;
 
     @Resource

@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.PerformanceInterceptor;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 
 import javax.sql.DataSource;
 
@@ -29,6 +30,7 @@ public class MybatisPlusConfig {
     }
 
     @Bean
+    @Profile({"dev", "test"})
     public PerformanceInterceptor performanceInterceptor() {
         return new PerformanceInterceptor();
     }

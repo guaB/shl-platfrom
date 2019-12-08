@@ -1,4 +1,4 @@
-package com.shl.common.token;
+package com.shl.oauth2.token;
 
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
@@ -7,18 +7,18 @@ import org.springframework.security.core.SpringSecurityCoreVersion;
 import java.util.Collection;
 
 /**
- * @description:
+ * @description: openid生成token
  * @author: songhonglei
  * @date: 2019-12-03
  */
-public class MobileAuthenticationToken extends AbstractAuthenticationToken {
+public class OpenIdAuthenticationToken extends AbstractAuthenticationToken {
+
     private static final long serialVersionUID = SpringSecurityCoreVersion.SERIAL_VERSION_UID;
 
     // ~ Instance fields
     // ================================================================================================
 
     private final Object principal;
-    private Object credentials;
 
     // ~ Constructors
     // ===================================================================================================
@@ -29,10 +29,9 @@ public class MobileAuthenticationToken extends AbstractAuthenticationToken {
      * will return <code>false</code>.
      *
      */
-    public MobileAuthenticationToken(String mobile, String password) {
+    public OpenIdAuthenticationToken(String openId) {
         super(null);
-        this.principal = mobile;
-        this.credentials = password;
+        this.principal = openId;
         setAuthenticated(false);
     }
 
@@ -45,11 +44,10 @@ public class MobileAuthenticationToken extends AbstractAuthenticationToken {
      * @param principal
      * @param authorities
      */
-    public MobileAuthenticationToken(Object principal, Object credentials,
+    public OpenIdAuthenticationToken(Object principal,
                                      Collection<? extends GrantedAuthority> authorities) {
         super(authorities);
         this.principal = principal;
-        this.credentials = credentials;
         super.setAuthenticated(true);
     }
 
@@ -58,7 +56,7 @@ public class MobileAuthenticationToken extends AbstractAuthenticationToken {
 
     @Override
     public Object getCredentials() {
-        return this.credentials;
+        return null;
     }
 
     @Override

@@ -1,7 +1,7 @@
 package com.shl.oauth2.mobile;
 
-import com.shl.common.token.MobileAuthenticationToken;
 import com.shl.oauth2.service.ShlUserDetailsService;
+import com.shl.oauth2.token.MobileAuthenticationToken;
 import lombok.Setter;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;

@@ -1,17 +1,18 @@
 package com.shl.oauth2.config;
 
+import com.shl.common.config.DefaultPasswordConfig;
 import com.shl.oauth2.mobile.MobileAuthenticationSecurityConfig;
 import com.shl.oauth2.openid.OpenIdAuthenticationSecurityConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 
@@ -23,6 +24,7 @@ import javax.annotation.Resource;
  * @date: 2019-12-03
  */
 @Configuration
+@Import(DefaultPasswordConfig.class)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Resource
@@ -39,6 +41,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private MobileAuthenticationSecurityConfig mobileAuthenticationSecurityConfig;
+
+    /**
+     * 这一步的配置是必不可少的，否则SpringBoot会自动配置一个AuthenticationManager,覆盖掉内存中的用户
+     * @return 认证管理对象
+     */
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -65,28 +77,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     }
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        super.configure(auth);
-    }
-
     /**
-     * 装配BCryptPasswordEncoder用户密码的匹配
-     * @return
+     * 全局用户信息
      */
-    @Bean("passwordEncoder")
-    public PasswordEncoder passwordEncoder()	{
-        return new BCryptPasswordEncoder();
-    }
-
     @Autowired
     public void globalUserDetails(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
-    }
-
-    @Bean
-    @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
     }
 }

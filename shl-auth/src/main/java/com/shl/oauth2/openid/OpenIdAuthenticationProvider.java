@@ -1,6 +1,6 @@
 package com.shl.oauth2.openid;
 
-import com.shl.common.token.OpenIdAuthenticationToken;
+import com.shl.oauth2.token.OpenIdAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.core.Authentication;

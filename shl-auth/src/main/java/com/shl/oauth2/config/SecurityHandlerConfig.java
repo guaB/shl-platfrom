@@ -1,6 +1,5 @@
 package com.shl.oauth2.config;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,8 +13,6 @@ import org.springframework.security.oauth2.common.exceptions.UnsupportedResponse
 import org.springframework.security.oauth2.provider.error.DefaultWebResponseExceptionTranslator;
 import org.springframework.security.oauth2.provider.error.WebResponseExceptionTranslator;
 
-import javax.annotation.Resource;
-
 /**
  * @description: 认证错误处理
  * @author: songhonglei
@@ -26,16 +23,16 @@ import javax.annotation.Resource;
 public class SecurityHandlerConfig {
 
     @Bean
-    public WebResponseExceptionTranslator webResponseExceptionTranslator(){
-        return new DefaultWebResponseExceptionTranslator(){
+    public WebResponseExceptionTranslator webResponseExceptionTranslator() {
+        return new DefaultWebResponseExceptionTranslator() {
             public static final String BAD_MSG = "坏的凭证";
 
             @Override
             public ResponseEntity<OAuth2Exception> translate(Exception e) throws Exception {
                 OAuth2Exception oAuth2Exception;
-                if(e.getMessage() != null && e.getMessage().equals(BAD_MSG)){
+                if (e.getMessage() != null && e.getMessage().equals(BAD_MSG)) {
                     oAuth2Exception = new InvalidGrantException("用户名或密码错误", e);
-                }else if(e instanceof InternalAuthenticationServiceException){
+                } else if (e instanceof InternalAuthenticationServiceException) {
                     oAuth2Exception = new InvalidGrantException(e.getMessage(), e);
                 } else if (e instanceof RedirectMismatchException) {
                     oAuth2Exception = new InvalidGrantException(e.getMessage(), e);

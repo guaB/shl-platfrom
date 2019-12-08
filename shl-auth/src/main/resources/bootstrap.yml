@@ -19,3 +19,8 @@ spring:
     user:
       password: admin
       name: admin
+encrypt:
+  key-store:
+    location: classpath:shl.jks
+    secret: shl@123
+    alias: shl
