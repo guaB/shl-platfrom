@@ -1,8 +1,10 @@
 package com.shl.gateway.service.impl;
 
 import com.shl.common.model.SysMenu;
+import com.shl.gateway.feign.MenuService;
 import com.shl.oauth2.service.impl.DefaultPermissionServiceImpl;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
@@ -16,16 +18,18 @@ import java.util.List;
  * @date 2019/12/8
  */
 @Slf4j
-@Service
+@Service("permissionService")
 public class PermissionServiceImpl extends DefaultPermissionServiceImpl {
 
+    @Autowired
+    MenuService menuService;
 
     @Override
     public List<SysMenu> findMenuByRoleCodes(String roleCodes) {
-        return null;
+        return menuService.findByRoleCodes(roleCodes);
     }
 
     public boolean hasPermission(HttpServletRequest request, Authentication authentication) {
-        return hasPermission(authentication, request.getMethod(), request.getRequestURI());
+        return super.hasPermission(authentication, request.getMethod(), request.getRequestURI());
     }
 }

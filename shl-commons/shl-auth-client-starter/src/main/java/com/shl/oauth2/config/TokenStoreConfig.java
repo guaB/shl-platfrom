@@ -3,6 +3,7 @@ package com.shl.oauth2.config;
 import com.shl.oauth2.stroe.AuthDbTokenStore;
 import com.shl.oauth2.stroe.AuthJwtTokenStore;
 import com.shl.oauth2.stroe.AuthRedisTokenStroe;
+import com.shl.oauth2.stroe.ResJwtTokenStore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -36,7 +37,8 @@ public class TokenStoreConfig {
 
     @Configuration
     @ConditionalOnProperty(prefix = "shl.oauth2.token.store", name = "type", havingValue = "resJwt")
-    @Import(AuthJwtTokenStore.class)
+    @Import(ResJwtTokenStore.class)
     public class ResJwtTokenConfig{
     }
+
 }

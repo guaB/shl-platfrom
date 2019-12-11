@@ -20,6 +20,6 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 public class ResourceServerConfig extends DefaultResourceServerConfig {
     @Override
     public HttpSecurity setAuthenticate(ExpressionUrlAuthorizationConfigurer<HttpSecurity>.AuthorizedUrl authorizedUrl) {
-        return authorizedUrl.access("@permissionServiceImpl.hasPermission(request, authentication)").and();
+        return authorizedUrl.access("@permissionService.hasPermission(request, authentication)").and();
     }
 }

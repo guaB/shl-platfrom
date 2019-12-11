@@ -2,7 +2,9 @@ package com.shl.common.model;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableLogic;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.util.List;
 
@@ -12,6 +14,8 @@ import java.util.List;
  * @date: 2019-12-03
  */
 @Data
+@EqualsAndHashCode(callSuper = false)
+@TableName("sys_user")
 public class SysUser extends SuperEntity{
 
     private static final long serialVersionUID = -5886012896705137070L;

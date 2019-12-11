@@ -7,16 +7,30 @@
         <option value="$PROJECT_DIR$/pom.xml" />
       </list>
     </option>
+    <option name="ignoredFiles">
+      <set>
+        <option value="$PROJECT_DIR$/shl-commons/shl-db-spring-boot-starter/pom.xml" />
+      </set>
+    </option>
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
       <profile-state>
         <expanded-state>
           <State />
+          <State>
+            <id>Ali-Check</id>
+          </State>
+          <State>
+            <id>Java</id>
+          </State>
+          <State>
+            <id>Serialization issuesJava</id>
+          </State>
         </expanded-state>
         <selected-state>
           <State>
-            <id>Android</id>
+            <id>SerializableHasSerialVersionUIDField</id>
           </State>
         </selected-state>
       </profile-state>

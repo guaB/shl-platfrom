@@ -1,0 +1,12 @@
+spring:
+  cloud:
+    nacos:
+      config:
+        server-addr: 192.168.73.100:8848
+        namespace: be0bff06-5043-4292-aace-d495d13774c5
+        group: shl_cloud
+      discovery:
+        server-addr: 192.168.73.100:8848
+        namespace: be0bff06-5043-4292-aace-d495d13774c5
+  application:
+    name: user-center
