@@ -16,6 +16,7 @@
         <module>shl-commons</module>
         <module>event-test</module>
         <module>shl-gateway</module>
+        <module>shl-business</module>
     </modules>
 
     <properties>
