@@ -25,8 +25,8 @@ public class PermissionServiceImpl extends DefaultPermissionServiceImpl {
     MenuService menuService;
 
     @Override
-    public List<SysMenu> findMenuByRoleCodes(String roleCodes) {
-        return menuService.findByRoleCodes(roleCodes);
+    public List<SysMenu> findMenusByRoleCodes(String roleCodes) {
+        return menuService.findMenusByRoleCodes(roleCodes);
     }
 
     public boolean hasPermission(HttpServletRequest request, Authentication authentication) {

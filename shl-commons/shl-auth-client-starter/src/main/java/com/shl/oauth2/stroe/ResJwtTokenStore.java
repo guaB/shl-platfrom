@@ -70,7 +70,7 @@ public class ResJwtTokenStore {
             String clientSecret = this.resource.getClientSecret();
             if(StringUtils.isNotEmpty(clientId) && StringUtils.isNotEmpty(clientSecret)){
                 byte[] token = Base64.getEncoder().encode((clientId.concat(":").concat(clientSecret)).getBytes());
-                httpHeaders.add(CommonConstant.TOKEN_HEADER.getMsg(), CommonConstant.BASIC.getMsg() + new String(token));
+                httpHeaders.add(CommonConstant.TOKEN_HEADER, CommonConstant.BASIC + new String(token));
             }
             final HttpEntity<Void> request = new HttpEntity<>(httpHeaders);
             String url = this.resource.getJwt().getKeyUri();

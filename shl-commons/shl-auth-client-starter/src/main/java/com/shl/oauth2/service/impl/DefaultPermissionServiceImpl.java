@@ -37,7 +37,7 @@ public abstract class DefaultPermissionServiceImpl {
      * @param roleCodes 角色code列表，多个以','隔开
      * @return
      */
-    public abstract List<SysMenu> findMenuByRoleCodes(String roleCodes);
+    public abstract List<SysMenu> findMenusByRoleCodes(String roleCodes);
 
     public boolean hasPermission(Authentication authentication, String requestMethod, String requestURI) {
         //前端跨域OPTIONS请求预检测放行  也可以通过前端配置代理实现
@@ -55,7 +55,7 @@ public abstract class DefaultPermissionServiceImpl {
 
             //超级管理员admin不需要认证
             String username = AuthUtils.getUsername(authentication);
-            if (CommonConstant.ADMIN.getMsg().equalsIgnoreCase(username)) {
+            if (CommonConstant.ADMIN_USER_NAME.equalsIgnoreCase(username)) {
                 return true;
             }
 
@@ -72,8 +72,8 @@ public abstract class DefaultPermissionServiceImpl {
                 return false;
             }
 
-            String roleCodes = grantedAuthorityList.stream().map(SimpleGrantedAuthority::getAuthority).collect(Collectors.joining(", "));
-            List<SysMenu> menuList = findMenuByRoleCodes(roleCodes);
+            String roleCodes = grantedAuthorityList.stream().map(SimpleGrantedAuthority::getAuthority).collect(Collectors.joining(","));
+            List<SysMenu> menuList = findMenusByRoleCodes(roleCodes);
             for (SysMenu menu: menuList){
                 if (StringUtils.isNotEmpty(menu.getUrl()) && antPathMatcher.match(menu.getUrl(), requestURI)){
                     if (StringUtils.isNotEmpty(menu.getPathMethod())){

@@ -6,28 +6,33 @@ package com.shl.common.constant;
  * @description 公共常量
  * @date 2019/12/8
  */
-public enum CommonConstant {
+public interface CommonConstant {
     /**
      * token请求头名称
      */
-    TOKEN_HEADER("Authorization"),
+    String TOKEN_HEADER = "Authorization";
 
     /**
      * 客户端携带参数
      */
-    BASIC("Basic "),
+    String BASIC = "Basic ";
     /**
      * 超级管理员用户名
      */
-    ADMIN("admin")
-    ;
-    private String msg;
+    String ADMIN_USER_NAME  = "admin";
 
-    CommonConstant(String msg) {
-        this.msg = msg;
-    }
+    /**
+     * 目录
+     */
+    Integer CATALOG = -1;
 
-    public String getMsg() {
-        return msg;
-    }
+    /**
+     * 菜单
+     */
+    Integer MENU = 1;
+
+    /**
+     * 权限
+     */
+    Integer PERMISSION = 2;
 }
