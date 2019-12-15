@@ -48,7 +48,7 @@ public class AuthUtils {
      * @return
      */
     private static String extractHeaderToken(HttpServletRequest request) {
-        Enumeration<String> headers = request.getHeaders(CommonConstant.TOKEN_HEADER.getMsg());
+        Enumeration<String> headers = request.getHeaders(CommonConstant.TOKEN_HEADER);
         while (headers.hasMoreElements()) {
             String value = headers.nextElement();
             if ((value.toLowerCase().startsWith(OAuth2AccessToken.BEARER_TYPE))) {
@@ -67,7 +67,7 @@ public class AuthUtils {
      * *从header 请求中的clientId:clientSecret
      */
     public static String[] extractClient(HttpServletRequest request) {
-        String header = request.getHeader(CommonConstant.TOKEN_HEADER.getMsg());
+        String header = request.getHeader(CommonConstant.TOKEN_HEADER);
         if (header == null || !header.startsWith(BASIC_)) {
             throw new UnapprovedClientAuthenticationException("请求头中client信息为空");
         }

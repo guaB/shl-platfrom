@@ -1,5 +1,6 @@
 package com.shl.oauth2.config;
 
+import com.shl.common.feign.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpMethod;
@@ -22,6 +23,7 @@ import javax.annotation.Resource;
  */
 @Import(DefaultSecurityHandlerConfig.class)
 public class DefaultResourceServerConfig extends ResourceServerConfigurerAdapter {
+
 
     @Autowired
     private TokenStore tokenStore;

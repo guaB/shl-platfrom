@@ -1,6 +1,6 @@
 spring:
   application:
-    name: shl_oauth2
+    name: shl-auth
   cloud:
     nacos:
       config:
@@ -19,6 +19,8 @@ spring:
     user:
       password: admin
       name: admin
+  main:
+    allow-bean-definition-overriding: true
 encrypt:
   key-store:
     location: classpath:shl.jks

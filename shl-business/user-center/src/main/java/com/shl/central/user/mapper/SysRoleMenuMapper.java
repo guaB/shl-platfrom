@@ -27,12 +27,12 @@ public interface SysRoleMenuMapper extends BaseMapper<SysRoleMenu> {
             "select distinct t.* from sys_menu t " +
             "inner join sys_role_menu r on r.menu_id = t.id " +
             "join sys_role rl on rl.id = r.id " +
-            "where in " +
+            "where rl.code  in " +
             "<foreach collection = 'roleCodes' item = 'roleCode' index = 'index' separator = ','>" +
                 "(#{roleCode})" +
             "</foreach>" +
             "<if test = 'type != null'> and t.type = #{type} </if>" +
-            " and t.hidden = 0  ORDER BY sort ASC " +
+            " and t.hidden = 0  ORDER BY t.sort ASC " +
             "</script>")
     List<SysMenu> findMenusByRoleCodes(@Param("roleCodes") Set<String> roleCodes, @Param("type") Integer type);
 
@@ -44,12 +44,12 @@ public interface SysRoleMenuMapper extends BaseMapper<SysRoleMenu> {
      * @return
      */
     @Select("<script>" +
-                "select distinct t.*  from sys_menu t inner join sys_role_menu r on r.menu_id = t.id where in " +
+                "select distinct t.*  from sys_menu t inner join sys_role_menu r on r.menu_id = t.id where r.role_id in " +
                 "<foreach collection = 'roleIds' item = 'roleId' index = 'index' open = '(' separator= ',' close = ')' >" +
                     "#{roleId}" +
                 "</foreach>" +
                 "<if test = 'type != null'> and t.type = #{type} </if>" +
-                " order by sort ase" +
+                " ORDER BY t.sort ASC" +
             "</script>")
     List<SysMenu> findMenuByRoleIds(@Param("roleIds") Set<Long> roleIds, @Param("type") Integer type);
 }
