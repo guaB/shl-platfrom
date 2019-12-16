@@ -2,7 +2,7 @@ package com.shl.gateway.service.impl;
 
 import com.shl.common.model.SysMenu;
 import com.shl.gateway.feign.MenuService;
-import com.shl.oauth2.service.impl.DefaultPermissionServiceImpl;
+import com.shl.oauth.service.impl.DefaultPermissionServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;

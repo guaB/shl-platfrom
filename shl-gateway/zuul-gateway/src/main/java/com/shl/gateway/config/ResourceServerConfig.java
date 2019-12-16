@@ -1,7 +1,7 @@
 package com.shl.gateway.config;
 
 import com.shl.common.config.DefaultPasswordConfig;
-import com.shl.oauth2.config.DefaultResourceServerConfig;
+import com.shl.oauth.config.DefaultResourceServerConfig;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;

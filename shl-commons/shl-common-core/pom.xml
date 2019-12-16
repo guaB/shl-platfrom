@@ -5,11 +5,12 @@
     <parent>
         <artifactId>shl-commons</artifactId>
         <groupId>com.shl</groupId>
-        <version>0.1-SNAPSHOT</version>
+        <version>1.0.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>shl-common-core</artifactId>
+    <packaging>jar</packaging>
 
     <dependencies>
         <dependency>

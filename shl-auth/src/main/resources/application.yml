@@ -1,0 +1,5 @@
+shl:
+  oauth2:
+    token:
+      store:
+        type: redis
