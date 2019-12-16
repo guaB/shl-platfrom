@@ -1,4 +1,6 @@
 spring:
+  application:
+    name: user-center
   cloud:
     nacos:
       discovery:
@@ -14,8 +16,6 @@ spring:
             group: shl_cloud
             refresh: true
         group: shl_cloud
-  application:
-    name: user-center
   security:
     user:
       name: admin
