@@ -3,6 +3,7 @@ package com.shl.oauth.config;
 import com.shl.common.config.DefaultPasswordConfig;
 import com.shl.oauth.mobile.MobileAuthenticationSecurityConfig;
 import com.shl.oauth.openid.OpenIdAuthenticationSecurityConfig;
+import com.shl.oauth.sms.SmsCodeAuthenticationSecurityConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -42,6 +43,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private MobileAuthenticationSecurityConfig mobileAuthenticationSecurityConfig;
 
+    @Autowired
+    private SmsCodeAuthenticationSecurityConfig smsCodeAuthenticationSecurityConfig;
+
     /**
      * 这一步的配置是必不可少的，否则SpringBoot会自动配置一个AuthenticationManager,覆盖掉内存中的用户
      * @return 认证管理对象
@@ -61,6 +65,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .apply(openIdAuthenticationSecurityConfig)
                     .and()
                 .apply(mobileAuthenticationSecurityConfig)
+                    .and()
+                .apply(smsCodeAuthenticationSecurityConfig)
                     .and()
                 .csrf().disable()
                 // 解决不允许显示在iframe的问题
