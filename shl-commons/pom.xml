@@ -14,6 +14,7 @@
     <modules>
         <module>shl-common-core</module>
         <module>shl-auth-client-starter</module>
+        <module>shl-common-spring-boot-starter</module>
     </modules>
     
 

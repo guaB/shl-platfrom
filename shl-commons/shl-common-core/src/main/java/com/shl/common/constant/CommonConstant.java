@@ -35,4 +35,12 @@ public interface CommonConstant {
      * 权限
      */
     Integer PERMISSION = 2;
+    /**
+     * 日志链路追踪id信息头
+     */
+    String TRACE_ID_HEADER = "x-traceId-header";
+    /**
+     * 日志链路追踪id日志标志
+     */
+    String LOG_TRACE_ID = "traceId";
 }
