@@ -1,8 +1,8 @@
 package com.shl.oauth.mobile;
 
+import com.shl.common.constant.CommonConstant;
 import com.shl.oauth.token.MobileAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationServiceException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
@@ -29,21 +29,21 @@ public class MobileAuthenticationFilter extends AbstractAuthenticationProcessing
     private boolean postOnly = true;
 
     public MobileAuthenticationFilter() {
-        super(new AntPathRequestMatcher("/login/mobile", "POST"));
+        super(new AntPathRequestMatcher(CommonConstant.MOBILE_AUTH_URL, CommonConstant.POST_METHOD));
     }
 
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException, IOException, ServletException {
-        if(this.postOnly && !request.getMethod().equals("POST")){
+        if (this.postOnly && !CommonConstant.POST_METHOD.equals(request.getMethod())) {
             throw new AuthenticationServiceException("Authentication method not supported: " + request.getMethod());
-        }else {
+        } else {
             String mobile = this.obtainMobile(request);
             String password = this.obtainPassword(request);
-            if (mobile == null){
+            if (mobile == null) {
                 mobile = "";
             }
-            if (password == null){
+            if (password == null) {
                 password = "";
 
             }
@@ -63,6 +63,7 @@ public class MobileAuthenticationFilter extends AbstractAuthenticationProcessing
 
     /**
      * 获取密码
+     *
      * @param request
      * @return
      */
@@ -72,6 +73,7 @@ public class MobileAuthenticationFilter extends AbstractAuthenticationProcessing
 
     /**
      * 获取手机号
+     *
      * @param request
      * @return
      */

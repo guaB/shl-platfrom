@@ -1,5 +1,6 @@
 package com.shl.oauth.mobile;
 
+import com.shl.oauth.handler.CustomAuthenticationSuccessHandler;
 import com.shl.oauth.service.ShlUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -21,12 +22,16 @@ public class MobileAuthenticationSecurityConfig extends SecurityConfigurerAdapte
     private ShlUserDetailsService userDetailsService;
     @Autowired
     private PasswordEncoder passwordEncoder;
-
+    @Autowired
+    private CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
         MobileAuthenticationFilter mobileAuthenticationFilter = new MobileAuthenticationFilter();
+        //设置AuthenticationManager
         mobileAuthenticationFilter.setAuthenticationManager(http.getSharedObject(AuthenticationManager.class));
+        //设置成功失败处理器
+        mobileAuthenticationFilter.setAuthenticationSuccessHandler(customAuthenticationSuccessHandler);
         //mobile provider
         MobileAuthenticationProvider provider = new MobileAuthenticationProvider();
         provider.setUserDetailsService(userDetailsService);

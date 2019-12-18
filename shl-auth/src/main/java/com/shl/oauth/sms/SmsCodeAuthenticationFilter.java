@@ -1,5 +1,6 @@
 package com.shl.oauth.sms;
 
+import com.shl.common.constant.CommonConstant;
 import com.shl.oauth.token.SmsCodeAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.core.Authentication;
@@ -29,17 +30,18 @@ public class SmsCodeAuthenticationFilter extends AbstractAuthenticationProcessin
      */
     private boolean postOnly = true;
 
-    public SmsCodeAuthenticationFilter(){
+    public SmsCodeAuthenticationFilter() {
         //要拦截的请求
-        super(new AntPathRequestMatcher("/login/sms", "POST"));
+        super(new AntPathRequestMatcher(CommonConstant.SMS_AUTH_URL, CommonConstant.POST_METHOD));
     }
+
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException, IOException, ServletException {
-        if (this.postOnly && !request.getMethod().equals("POST")){
+        if (this.postOnly && !CommonConstant.POST_METHOD.equals(request.getMethod())) {
             throw new AuthenticationServiceException("Authentication method not supported: " + request.getMethod());
-        }else {
-            String mobile =  this.obtainMobile(request);
-            if (mobile == null){
+        } else {
+            String mobile = this.obtainMobile(request);
+            if (mobile == null) {
                 mobile = "";
             }
             mobile = mobile.trim();
