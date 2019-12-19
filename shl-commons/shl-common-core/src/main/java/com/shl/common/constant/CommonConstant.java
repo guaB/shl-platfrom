@@ -36,11 +36,6 @@ public interface CommonConstant {
      */
     Integer PERMISSION = 2;
     /**
-     * POST请求
-     */
-    String POST_METHOD = "POST";
-
-    /**
      * 日志链路追踪id信息头
      */
     String TRACE_ID_HEADER = "x-traceId-header";
@@ -50,19 +45,12 @@ public interface CommonConstant {
     String LOG_TRACE_ID = "traceId";
 
     /**
-     * mobile认证地址
+     * 常量
      */
-    String MOBILE_AUTH_URL = "/login/mobile";
+    Integer ONE_NUM = 1;
 
     /**
-     * sms认证地址
+     * 常量
      */
-    String SMS_AUTH_URL = "/login/sms";
-
-    /**
-     * openId认证地址
-     */
-    String OPENID_AUTH_URL = "/login/openId";
-
-
+    Integer TWO_NUM = 2;
 }

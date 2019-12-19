@@ -89,7 +89,7 @@ public class RedisClientDetailsService extends JdbcClientDetailsService {
     }
 
     private String clientRedisKey(String clientId) {
-        return SecurityConstants.CACHE_CLIENT_KEY.getMsg() + ":" + clientId;
+        return SecurityConstants.CACHE_CLIENT_KEY + ":" + clientId;
 
     }
 

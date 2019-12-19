@@ -50,10 +50,10 @@ public class UserInfoHeaderFilter extends ZuulFilter {
             String clientId = auth2Authentication.getOAuth2Request().getClientId();
 
             RequestContext ctx = RequestContext.getCurrentContext();
-            ctx.addZuulRequestHeader(SecurityConstants.USER_ID_HEADER.getMsg(), userId.toString());
-            ctx.addZuulRequestHeader(SecurityConstants.USER_HEADER.getMsg(), username);
-            ctx.addZuulRequestHeader(SecurityConstants.TENANT_HEADER.getMsg(), clientId);
-            ctx.addZuulRequestHeader(SecurityConstants.ROLE_HEADER.getMsg(), StringUtils.join(authentication.getAuthorities(), ","));
+            ctx.addZuulRequestHeader(SecurityConstants.USER_ID_HEADER, userId.toString());
+            ctx.addZuulRequestHeader(SecurityConstants.USER_HEADER, username);
+            ctx.addZuulRequestHeader(SecurityConstants.TENANT_HEADER, clientId);
+            ctx.addZuulRequestHeader(SecurityConstants.ROLE_HEADER, StringUtils.join(authentication.getAuthorities(), ","));
 
         }
         return null;

@@ -4,6 +4,7 @@ import com.shl.common.config.DefaultPasswordConfig;
 import com.shl.oauth.mobile.MobileAuthenticationSecurityConfig;
 import com.shl.oauth.openid.OpenIdAuthenticationSecurityConfig;
 import com.shl.oauth.sms.SmsCodeAuthenticationSecurityConfig;
+import com.shl.oauth.validate.ValidateCodeSecurityConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -46,6 +47,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private SmsCodeAuthenticationSecurityConfig smsCodeAuthenticationSecurityConfig;
 
+    @Autowired
+    private ValidateCodeSecurityConfig validateCodeSecurityConfig;
+
     /**
      * 这一步的配置是必不可少的，否则SpringBoot会自动配置一个AuthenticationManager,覆盖掉内存中的用户
      * @return 认证管理对象
@@ -61,6 +65,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                     .anyRequest()
                     .permitAll()
+                    .and()
+                .apply(validateCodeSecurityConfig)
                     .and()
                 .apply(openIdAuthenticationSecurityConfig)
                     .and()
