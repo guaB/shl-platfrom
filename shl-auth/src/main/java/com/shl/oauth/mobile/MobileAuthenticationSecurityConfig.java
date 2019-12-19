@@ -25,8 +25,8 @@ public class MobileAuthenticationSecurityConfig extends SecurityConfigurerAdapte
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        MobileAuthenticationFilter mobileAuthenticationFilter = new MobileAuthenticationFilter();
-        mobileAuthenticationFilter.setAuthenticationManager(http.getSharedObject(AuthenticationManager.class));
+        /*MobileAuthenticationFilter mobileAuthenticationFilter = new MobileAuthenticationFilter();
+        mobileAuthenticationFilter.setAuthenticationManager(http.getSharedObject(AuthenticationManager.class));*/
         //mobile provider
         MobileAuthenticationProvider provider = new MobileAuthenticationProvider();
         provider.setUserDetailsService(userDetailsService);

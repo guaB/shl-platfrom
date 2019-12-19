@@ -51,7 +51,7 @@ public class ResJwtTokenStore {
      * @return 公钥 Key
      */
     private String getPubKey() {
-        Resource resource = new ClassPathResource(SecurityConstants.RSA_PUBLIC_KEY.getMsg());
+        Resource resource = new ClassPathResource(SecurityConstants.RSA_PUBLIC_KEY);
         try (BufferedReader br = new BufferedReader(new InputStreamReader(resource.getInputStream()))){
             return br.lines().collect(Collectors.joining("\n"));
         } catch (IOException e) {

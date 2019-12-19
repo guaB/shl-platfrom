@@ -43,4 +43,14 @@ public interface CommonConstant {
      * 日志链路追踪id日志标志
      */
     String LOG_TRACE_ID = "traceId";
+
+    /**
+     * 常量
+     */
+    Integer ONE_NUM = 1;
+
+    /**
+     * 常量
+     */
+    Integer TWO_NUM = 2;
 }

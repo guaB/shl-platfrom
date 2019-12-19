@@ -43,7 +43,7 @@ public class ClientArgumentResolver implements HandlerMethodArgumentResolver {
     public Object resolveArgument(MethodParameter methodParameter, ModelAndViewContainer modelAndViewContainer,
                                   NativeWebRequest nativeWebRequest, WebDataBinderFactory webDataBinderFactory) throws Exception {
         HttpServletRequest request = nativeWebRequest.getNativeRequest(HttpServletRequest.class);
-        String clientId = request.getHeader(SecurityConstants.TENANT_HEADER.getMsg());
+        String clientId = request.getHeader(SecurityConstants.TENANT_HEADER);
         if (StringUtils.isBlank(clientId)) {
             log.warn("resolveArgument error clientId is empty");
         }

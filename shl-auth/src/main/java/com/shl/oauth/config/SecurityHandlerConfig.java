@@ -1,9 +1,14 @@
 package com.shl.oauth.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.shl.common.utils.ResponseUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.oauth2.common.exceptions.InvalidGrantException;
 import org.springframework.security.oauth2.common.exceptions.InvalidScopeException;
@@ -12,6 +17,7 @@ import org.springframework.security.oauth2.common.exceptions.RedirectMismatchExc
 import org.springframework.security.oauth2.common.exceptions.UnsupportedResponseTypeException;
 import org.springframework.security.oauth2.provider.error.DefaultWebResponseExceptionTranslator;
 import org.springframework.security.oauth2.provider.error.WebResponseExceptionTranslator;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 
 /**
  * @description: 认证错误处理
@@ -21,6 +27,24 @@ import org.springframework.security.oauth2.provider.error.WebResponseExceptionTr
 @Configuration
 @Slf4j
 public class SecurityHandlerConfig {
+
+    @Autowired
+    private ObjectMapper objectMapper;
+    /**
+     * 登陆失败，返回401
+     */
+    @Bean
+    public AuthenticationFailureHandler loginFailureHandler() {
+        return (request, response, exception) -> {
+            String msg;
+            if (exception instanceof BadCredentialsException) {
+                msg = "密码错误";
+            } else {
+                msg = exception.getMessage();
+            }
+            ResponseUtil.responseWriter(objectMapper, response, msg, HttpStatus.UNAUTHORIZED.value());
+        };
+    }
 
     @Bean
     public WebResponseExceptionTranslator webResponseExceptionTranslator() {
