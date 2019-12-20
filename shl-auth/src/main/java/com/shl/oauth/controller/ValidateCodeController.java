@@ -5,6 +5,7 @@ import com.shl.common.model.Result;
 import com.shl.oauth.service.ValidateCodeService;
 import com.wf.captcha.GifCaptcha;
 import com.wf.captcha.base.Captcha;
+import com.wf.captcha.utils.CaptchaUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
@@ -31,6 +32,8 @@ public class ValidateCodeController {
     public void createCode(@PathVariable String deviceId, HttpServletResponse response) throws IOException {
         Assert.notNull(deviceId, "机器码不能为空");
         //设置请求输出图片类型
+        CaptchaUtil.setHeader(response);
+        // 三个参数分别为宽、高、位数
         GifCaptcha gifCaptcha = new GifCaptcha(100, 35, 4);
         // 设置类型：字母数字混合
         gifCaptcha.setCharType(Captcha.TYPE_DEFAULT);

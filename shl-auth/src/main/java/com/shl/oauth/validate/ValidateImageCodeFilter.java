@@ -50,7 +50,7 @@ public class ValidateImageCodeFilter extends OncePerRequestFilter {
         //password登陆提交的时候验证验证码
         if (pathMatcher.match(SecurityConstants.PASSWORD_LOGIN_PRO_URL, request.getRequestURI())) {
 
-            //判断是否有不验证验证码的client
+            //判断是否有不 验证验证码的client
             if (securityProperties.getCode().getIgnoreClientCode().length > 0) {
                 try {
                     String[] clientInfos = AuthUtils.extractClient(request);
