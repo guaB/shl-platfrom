@@ -45,6 +45,11 @@ public interface CommonConstant {
     String LOG_TRACE_ID = "traceId";
 
     /**
+     * 请求方法
+     */
+    String POST_METHOD = "POST";
+
+    /**
      * 常量
      */
     Integer ONE_NUM = 1;
@@ -53,4 +58,6 @@ public interface CommonConstant {
      * 常量
      */
     Integer TWO_NUM = 2;
+
+
 }

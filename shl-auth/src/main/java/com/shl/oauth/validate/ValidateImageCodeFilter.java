@@ -48,19 +48,19 @@ public class ValidateImageCodeFilter extends OncePerRequestFilter {
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
         //password登陆提交的时候验证验证码
-        if(pathMatcher.match(SecurityConstants.PASSWORD_LOGIN_PRO_URL, request.getRequestURI())){
+        if (pathMatcher.match(SecurityConstants.PASSWORD_LOGIN_PRO_URL, request.getRequestURI())) {
 
             //判断是否有不验证验证码的client
-            if(securityProperties.getCode().getIgnoreClientCode().length > 0){
+            if (securityProperties.getCode().getIgnoreClientCode().length > 0) {
                 try {
                     String[] clientInfos = AuthUtils.extractClient(request);
                     String clientId = clientInfos[0];
-                    for (String client : securityProperties.getCode().getIgnoreClientCode()){
-                        if(client.equals(clientId)){
+                    for (String client : securityProperties.getCode().getIgnoreClientCode()) {
+                        if (client.equals(clientId)) {
                             return true;
                         }
                     }
-                }catch (Exception e){
+                } catch (Exception e) {
                     logger.error("解析client信息失败", e);
                 }
 
@@ -74,7 +74,7 @@ public class ValidateImageCodeFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
         try {
             validateCodeService.validateImageCode(request);
-        }catch (ValidateCodeException e){
+        } catch (ValidateCodeException e) {
             authenticationFailureHandler.onAuthenticationFailure(request, response, e);
             return;
         }

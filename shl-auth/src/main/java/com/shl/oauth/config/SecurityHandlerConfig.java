@@ -2,6 +2,7 @@ package com.shl.oauth.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.shl.common.utils.ResponseUtil;
+import com.shl.oauth.handler.OauthLogoutHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -44,6 +45,11 @@ public class SecurityHandlerConfig {
             }
             ResponseUtil.responseWriter(objectMapper, response, msg, HttpStatus.UNAUTHORIZED.value());
         };
+    }
+
+    @Bean
+    public OauthLogoutHandler oauthLogoutHandler() {
+        return new OauthLogoutHandler();
     }
 
     @Bean

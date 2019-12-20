@@ -29,7 +29,7 @@ public interface ValidateCodeService  {
      * 获取验证码
      * @param deviceId 前端唯一标识/手机号
      * @param type 1.图片验证  2.sms验证
-     * @return
+     * @return 生成验证码
      */
     String getCode(String deviceId, Integer type);
 

@@ -43,7 +43,7 @@ public class ValidateSmsCodeFilter extends OncePerRequestFilter {
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
         //sms登陆提交的时候验证验证码
-        if (pathMatcher.match(SecurityConstants.SMS_TOKEN_URL,request.getRequestURI() )){
+        if (pathMatcher.match(SecurityConstants.SMS_TOKEN_URL, request.getRequestURI())) {
             return false;
         }
         return true;
@@ -53,7 +53,7 @@ public class ValidateSmsCodeFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
         try {
             validateCodeService.validateSmsCode(request);
-        }catch (ValidateCodeException e){
+        } catch (ValidateCodeException e) {
             authenticationFailureHandler.onAuthenticationFailure(request, response, e);
             return;
         }

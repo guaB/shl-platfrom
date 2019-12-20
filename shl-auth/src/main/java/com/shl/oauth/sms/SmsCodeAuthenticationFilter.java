@@ -1,6 +1,7 @@
 package com.shl.oauth.sms;
 
 import com.shl.common.constant.CommonConstant;
+import com.shl.common.constant.SecurityConstants;
 import com.shl.oauth.token.SmsCodeAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.core.Authentication;
@@ -32,7 +33,7 @@ public class SmsCodeAuthenticationFilter extends AbstractAuthenticationProcessin
 
     public SmsCodeAuthenticationFilter() {
         //要拦截的请求
-        super(new AntPathRequestMatcher(CommonConstant.SMS_AUTH_URL, CommonConstant.POST_METHOD));
+        super(new AntPathRequestMatcher(SecurityConstants.SMS_TOKEN_URL, CommonConstant.POST_METHOD));
     }
 
     @Override

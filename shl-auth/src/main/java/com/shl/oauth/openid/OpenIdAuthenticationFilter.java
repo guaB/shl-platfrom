@@ -1,6 +1,7 @@
 package com.shl.oauth.openid;
 
 import com.shl.common.constant.CommonConstant;
+import com.shl.common.constant.SecurityConstants;
 import com.shl.oauth.token.OpenIdAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.core.Authentication;
@@ -34,7 +35,7 @@ public class OpenIdAuthenticationFilter extends AbstractAuthenticationProcessing
 
     public OpenIdAuthenticationFilter() {
         //要拦截的请求
-        super(new AntPathRequestMatcher(CommonConstant.OPENID_AUTH_URL, CommonConstant.POST_METHOD));
+        super(new AntPathRequestMatcher(SecurityConstants.OPENID_TOKEN_URL, CommonConstant.POST_METHOD));
     }
 
     @Override

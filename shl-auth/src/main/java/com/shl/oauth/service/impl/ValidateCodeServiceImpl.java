@@ -3,7 +3,6 @@ package com.shl.oauth.service.impl;
 import com.shl.common.constant.CommonConstant;
 import com.shl.common.constant.SecurityConstants;
 import com.shl.common.feign.UserService;
-import com.shl.common.model.LoginAppUser;
 import com.shl.common.model.Result;
 import com.shl.common.model.SysUser;
 import com.shl.oauth.exception.ValidateCodeException;
@@ -75,9 +74,32 @@ public class ValidateCodeServiceImpl implements ValidateCodeService {
             throw new ValidateCodeException("请在请求参数中携带deviceId参数");
         }
         String code = this.getCode(deviceId, CommonConstant.ONE_NUM);
+        checkValidateCode(request, code, "validCode");
+        this.removeCode(deviceId, CommonConstant.ONE_NUM);
+    }
+
+    @Override
+    public void validateSmsCode(HttpServletRequest request) throws ValidateCodeException {
+        String mobile = request.getParameter("mobile");
+        if(StringUtils.isBlank(mobile)){
+            throw new ValidateCodeException("请在请求参数中携带mobile参数");
+        }
+        String code = this.getCode(mobile, CommonConstant.TWO_NUM);
+        checkValidateCode(request, code, "smsCode");
+        this.removeCode(mobile, CommonConstant.TWO_NUM);
+    }
+
+    /**
+     * 验证验证码
+     * @param request http请求
+     * @param code 验证码
+     * @param codeType 验证码类型
+     * @throws ValidateCodeException
+     */
+    private void checkValidateCode(HttpServletRequest request ,String code, String codeType) throws ValidateCodeException {
         String codeInRequest;
         try {
-            codeInRequest = ServletRequestUtils.getStringParameter(request, "validCode");
+            codeInRequest = ServletRequestUtils.getStringParameter(request, codeType);
         } catch (ServletRequestBindingException e) {
             throw new ValidateCodeException("获取验证码的值失败");
         }
@@ -90,14 +112,14 @@ public class ValidateCodeServiceImpl implements ValidateCodeService {
         if (!StringUtils.equals(code, codeInRequest.toLowerCase())) {
             throw new ValidateCodeException("验证码不正确");
         }
-        this.removeCode(deviceId, CommonConstant.ONE_NUM);
     }
 
-    @Override
-    public void validateSmsCode(HttpServletRequest request) throws ValidateCodeException {
-        String moblie = request.getParameter("moblie");
-    }
-
+    /**
+     * 构建验证码key
+     * @param deviceId 前端唯一识别码/手机
+     * @param type 1.imageCode  2.smsCode
+     * @return
+     */
     private String buildKey(String deviceId, int type) {
         if(type == CommonConstant.ONE_NUM){
             return SecurityConstants.IMAGE_CODE_KEY + deviceId;

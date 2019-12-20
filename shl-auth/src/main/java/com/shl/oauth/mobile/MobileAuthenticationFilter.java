@@ -1,6 +1,7 @@
 package com.shl.oauth.mobile;
 
 import com.shl.common.constant.CommonConstant;
+import com.shl.common.constant.SecurityConstants;
 import com.shl.oauth.token.MobileAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.core.Authentication;
@@ -29,7 +30,7 @@ public class MobileAuthenticationFilter extends AbstractAuthenticationProcessing
     private boolean postOnly = true;
 
     public MobileAuthenticationFilter() {
-        super(new AntPathRequestMatcher(CommonConstant.MOBILE_AUTH_URL, CommonConstant.POST_METHOD));
+        super(new AntPathRequestMatcher(SecurityConstants.MOBILE_TOKEN_URL, CommonConstant.POST_METHOD));
     }
 
 
