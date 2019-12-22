@@ -1,0 +1,67 @@
+zuul:
+  ribbon-isolation-strategy: thread
+  ribbon:
+    eager-load:
+      enabled: true
+  thread-pool:
+    use-separate-thread-pools: true
+    thread-pool-key-prefix: api-gateway
+  #关闭重新
+  retryable: false
+  ignored-headers: Access-Control-Allow-Credentials,Access-Control-Allow-Origin,Access-Control-Allow-Methods
+  add-host-header: true
+  routes:
+    auth:
+      path: /api-auth/**
+      service-id: shl-auth
+      strip-prefix: true
+      sensitive-headers: '*'
+      custom-sensitive-headers: true
+    auth-login-token:
+      path: /oauth/token
+      service-id: shl-auth
+      strip-prefix: true
+      sensitive-headers: '*'
+      custom-sensitive-headers: true
+    auth-login-authorize:
+      path: /oauth/process
+      service-id: shl-auth
+      strip-prefix: true
+      sensitive-headers: '*'
+      custom-sensitive-headers: true
+    auth-login-process:
+      path: /oauth/check_token
+      service-id: shl-auth
+      strip-prefix: true
+      sensitive-headers: '*'
+      custom-sensitive-headers: true
+    user:
+      path: /api-user/**
+      service-id: user-center
+      strip-prefix: true
+      sensitive-headers: '*'
+      costom-sensitive-headers: true
+  ssl-hostname-validation-enabled: false
+
+
+shl:
+  oauth2:
+    token:
+      store:
+        type: redis
+  security:
+    ignore:
+      #忽略认证的地址
+      httpUrls: >
+      /api-auth/oauth/**
+      /api-auth/validate/**
+    code:
+      ignoreClientCode:
+        - app
+
+
+  gateway:
+    #网关动态路由
+    dynamicRoute:
+      enabled: true
+      dataType: nacos

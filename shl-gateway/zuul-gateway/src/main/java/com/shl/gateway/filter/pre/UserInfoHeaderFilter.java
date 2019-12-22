@@ -2,7 +2,6 @@ package com.shl.gateway.filter.pre;
 
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
-import com.netflix.zuul.exception.ZuulException;
 import com.shl.common.constant.SecurityConstants;
 import com.shl.common.model.SysUser;
 import org.apache.commons.lang3.StringUtils;
@@ -39,19 +38,20 @@ public class UserInfoHeaderFilter extends ZuulFilter {
     }
 
     @Override
-    public Object run() throws ZuulException {
+    public Object run() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && !(authentication instanceof AnonymousAuthenticationToken)) {
-            SysUser user = (SysUser) authentication.getPrincipal();
-            Long userId = user.getId();
-            String username = user.getUsername();
+            Object principal =  authentication.getPrincipal();
+            RequestContext ctx = RequestContext.getCurrentContext();
+            //客户端模式只返回一个clientId
+            if (principal instanceof SysUser) {
+                SysUser user = (SysUser)authentication.getPrincipal();
+                ctx.addZuulRequestHeader(SecurityConstants.USER_ID_HEADER, String.valueOf(user.getId()));
+                ctx.addZuulRequestHeader(SecurityConstants.USER_HEADER, user.getUsername());
+            }
 
             OAuth2Authentication auth2Authentication = (OAuth2Authentication) authentication;
             String clientId = auth2Authentication.getOAuth2Request().getClientId();
-
-            RequestContext ctx = RequestContext.getCurrentContext();
-            ctx.addZuulRequestHeader(SecurityConstants.USER_ID_HEADER, userId.toString());
-            ctx.addZuulRequestHeader(SecurityConstants.USER_HEADER, username);
             ctx.addZuulRequestHeader(SecurityConstants.TENANT_HEADER, clientId);
             ctx.addZuulRequestHeader(SecurityConstants.ROLE_HEADER, StringUtils.join(authentication.getAuthorities(), ","));
 
