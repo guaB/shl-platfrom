@@ -13,3 +13,8 @@ spring:
         file-extension: yml
   main:
     allow-bean-definition-overriding: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'

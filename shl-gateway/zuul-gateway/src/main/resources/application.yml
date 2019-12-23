@@ -62,4 +62,3 @@ shl:
     #网关动态路由
     dynamicRoute:
       enabled: true
-      dataType: nacos

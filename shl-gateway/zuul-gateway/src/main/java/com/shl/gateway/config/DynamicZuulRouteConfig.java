@@ -17,7 +17,7 @@ import org.springframework.context.annotation.Configuration;
  * @date 2019/12/22
  */
 @Configuration
-@ConditionalOnProperty(prefix = "shl.gateway.dynamicRoute", name = "enable", havingValue = "true")
+@ConditionalOnProperty(prefix = "shl.gateway.dynamicRoute", name = "enabled", havingValue = "true")
 public class DynamicZuulRouteConfig {
 
     @Autowired
