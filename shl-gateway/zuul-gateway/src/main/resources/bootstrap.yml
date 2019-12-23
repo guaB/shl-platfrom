@@ -4,15 +4,12 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: 192.168.244.10:8848
-        namespace: e3cb8027-8830-48cb-9708-f0c0a7f7b0b9
+        server-addr: 192.168.73.100:8848
+        namespace: be0bff06-5043-4292-aace-d495d13774c5
       config:
-        server-addr: 192.168.244.10:8848
-        namespace: e3cb8027-8830-48cb-9708-f0c0a7f7b0b9
+        server-addr: 192.168.73.100:8848
+        namespace: be0bff06-5043-4292-aace-d495d13774c5
+        group: shl_cloud
         file-extension: yml
-        group: zuul_group
-server:
-  port: 9900
-  undertow:
-    buffer-size: 1024
-    direct-buffers: true
+  main:
+    allow-bean-definition-overriding: true

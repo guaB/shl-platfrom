@@ -1,5 +1,6 @@
 package com.shl.oauth.config;
 
+import com.shl.oauth.properties.SecurityProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpMethod;
@@ -36,6 +37,9 @@ public class DefaultResourceServerConfig extends ResourceServerConfigurerAdapter
     @Resource
     private OAuth2AccessDeniedHandler oAuth2AccessDeniedHandler;
 
+    @Autowired
+    SecurityProperties securityProperties;
+
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
         resources.tokenStore(tokenStore)
@@ -49,6 +53,7 @@ public class DefaultResourceServerConfig extends ResourceServerConfigurerAdapter
     public void configure(HttpSecurity http) throws Exception {
         ExpressionUrlAuthorizationConfigurer<HttpSecurity>.AuthorizedUrl authorizedUrl = setHttp(http)
                 .authorizeRequests()
+                .antMatchers(securityProperties.getIgnore().getUrls()).permitAll()
                 .antMatchers(HttpMethod.OPTIONS).permitAll()
                 .anyRequest();
         setAuthenticate(authorizedUrl);

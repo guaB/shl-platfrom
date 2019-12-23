@@ -53,13 +53,11 @@ shl:
     ignore:
       #忽略认证的地址
       httpUrls: >
-      /api-auth/oauth/**
-      /api-auth/validate/**
+        /api-auth/oauth/**,
+        /api-auth/validate/**
     code:
       ignoreClientCode:
         - app
-
-
   gateway:
     #网关动态路由
     dynamicRoute:

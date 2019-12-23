@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>OAUTH2_TEST接口文档-ApiPost</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="keywords" content="接口文档,ApiPost">
+<meta name="description" content="本文档由可直接生成文档的API调试、管理工具ApiPost生成">
+<!--自适应声明部分-->
+<meta name="applicable-device" content="pc" />
+<link rel="shortcut icon" href="https://console.apipost.cn/favicon.ico">
+<link rel="stylesheet" type="text/css" href="https://img.cdn.apipost.cn/statics/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="https://img.cdn.apipost.cn/statics/build-in/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="https://img.cdn.apipost.cn/statics/build-in/bootstrap/css/document.css?v=2152">
+<link rel="stylesheet" type="text/css" href="https://img.cdn.apipost.cn/statics/build-in/bootstrap/css/markdown.css?v=1326">
+<link rel="stylesheet" type="text/css" href="https://img.cdn.apipost.cn/statics/build-in/nprogress-0.2.0/nprogress.css">
+<link rel="stylesheet" type="text/css" href="https://console.apipost.cn/doc/statics/css/doc.css">
+<script type="text/javascript" src="https://img.cdn.apipost.cn/statics/build-in/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="https://img.cdn.apipost.cn/statics/build-in/clipboard.js-master/clipboard.min.js"></script>
+<script type="text/javascript" src="https://img.cdn.apipost.cn/statics/build-in/nprogress-0.2.0/nprogress.js"></script>
+<script type="text/javascript" src="https://img.cdn.apipost.cn/statics/build-in/bootstrap/js/bootstrap.js"></script>
+<script language="javascript">
+	$(function(){
+		let _clipboard = new ClipboardJS('.api-test-send-btn');
+
+        _clipboard.on('success', function(e) {
+            e.clearSelection();
+        });
+
+        _clipboard.on('error', function(e) {
+            console.log(e);
+        });
+
+        $(document).on('click', '.api-test-send-btn', function(){
+        	let _href = $(this).attr('data-href');
+        	window.open(_href);
+        });
+
+		let _left_menus = [{"parent_id":"0","folder_id":"46761","name":"oauth2\u6d4b\u8bd5\u8ba4\u8bc1\u670d\u52a1\u5668\u63a5\u53e3","item":[{"apiid":"271481","name":"\u83b7\u53d6\u56fe\u7247\u9a8c\u8bc1\u7801","sort":"0","folder_id":"46761"},{"apiid":"271413","name":"\u83b7\u53d6\u624b\u673a\u9a8c\u8bc1\u7801","sort":"1","folder_id":"46761"},{"apiid":"255079","name":"OAuth2 \u9ed8\u8ba4password\u767b\u9646","sort":"2","folder_id":"46761"},{"apiid":"271398","name":"\u81ea\u5b9a\u4e49openid\u767b\u9646","sort":"3","folder_id":"46761"},{"apiid":"270130","name":"\u81ea\u5b9a\u4e49password\u767b\u9646","sort":"4","folder_id":"46761"},{"apiid":"273674","name":"\u81ea\u5b9a\u4e49\u624b\u673a\u9a8c\u8bc1\u7801\u767b\u5f55","sort":"5","folder_id":"46761"}]}];
+		let _init_apiid = 271481;
+
+		if(window.location.hash){
+			let _hash_apiid = parseInt(window.location.hash.substr(1));
+			_init_apiid = _hash_apiid ? _hash_apiid : _init_apiid;
+		}
+
+		//收缩文档页面左侧菜单
+        let _is_pull = 0;
+        $('.document-pull-left').click(function(){
+            _is_pull = !_is_pull;
+
+            if(_is_pull){
+                $(".book-summary").css("left","-300px");
+                $(".book-body").css("left","0");
+            }else{
+                $(".book-summary").css("left","0");
+                $(".book-body").css("left","300px");
+            }
+        });
+
+        //文档上一页
+        $('.navigation-prev').click(function(){
+        	// let _length = $('.load-api-btn').length;
+        	let _index = Math.max($('.load-api-btn').index($('.load-api-btn.active')) - 1, 0);
+        	let _apiid = parseInt($('.load-api-btn').eq(_index).attr('data-id'));
+
+        	_load_document(_apiid);
+        });
+
+        //文档下一页
+        $('.navigation-next').click(function(){
+        	let _length = $('.load-api-btn').length;
+        	let _index = Math.min($('.load-api-btn').index($('.load-api-btn.active')) + 1, _length - 1);
+        	let _apiid = parseInt($('.load-api-btn').eq(_index).attr('data-id'));
+
+        	_load_document(_apiid);
+        });
+
+		//分享文档地址
+        $(".export-document-link-btn").click(function() {
+            $(this).attr('data-clipboard-text', 'https://console.apipost.cn/doc/41053?du_id=0');
+            let _clipboard = new ClipboardJS('.export-document-link-btn');
+            _clipboard.on('success', function(e) {
+                alert('文档地址复制成功，您可以转发给您的小伙伴啦~');
+                e.clearSelection();
+                return true;
+            });
+
+            _clipboard.on('error', function(e) {
+                alert('复制失败，请重试');
+                return false;
+            });
+        });
+
+		//加载左侧菜单
+		_load_menu();
+		$('.api-search-word').on('input change', function(){
+			_load_menu();
+		});
+
+		$('.document-summary').on('click', '.load-api-btn', function(){
+			let _this = this;
+			let _apiid = parseInt($(_this).attr('data-id'));
+			_load_document(_apiid);
+		}).on('click', 'a[data-type="category"]', function(){
+			$(this).next('.articles').toggle();
+
+			if($(this).children('.fa').eq(0).hasClass('fa-folder-open-o')){
+				$(this).children('.fa').eq(0).addClass('fa-folder-o').removeClass('fa-folder-open-o');
+			}else{
+				$(this).children('.fa').eq(0).addClass('fa-folder-open-o').removeClass('fa-folder-o');
+			}
+		}).on('click', '.load-sub-btn', function () {
+            let _this = this;
+            let _folder_id = parseInt($(_this).attr('data-id'));
+            $('.sub-folder-' + _folder_id).toggle();
+            if($(_this).children('.fa').eq(0).hasClass('fa-folder-open-o')){
+                $(_this).children('.fa').eq(0).addClass('fa-folder-o').removeClass('fa-folder-open-o');
+            }else{
+                $(_this).children('.fa').eq(0).addClass('fa-folder-open-o').removeClass('fa-folder-o');
+            }
+        });
+
+		//加载右侧文档
+		_load_document(_init_apiid);
+
+		//私有函数
+		//加载右侧文档函数
+		function _load_document(_apiid){
+			NProgress.start();
+			$('.chapter').removeClass('active');
+			$('.chapter[data-id="'+_apiid+'"]').addClass('active');
+			$('.page-wrapper').addClass('hide');
+			$('.page-wrapper[tabindex="'+_apiid+'"]').removeClass('hide');
+			$('.load-api-btn').removeClass('active');
+			$('.load-api-btn[data-id="'+_apiid+'"]').addClass('active');
+
+			//隐藏空的元素
+			$('.document-block-div').each(function(){
+				let _this = this;
+				let _length = $(_this).find('tbody').eq(0).children().length;
+				// console.log(_length);
+				if(!_length){
+					$(_this).hide();
+				}
+			});
+
+			window.location.hash='#' + _apiid;
+			NProgress.done();
+		}
+
+		//加载左侧菜单函数
+        function _load_menu(){
+        	let _keyword = $.trim($('.api-search-word').val());
+
+        	//左侧渲染
+	        $('.document-summary').empty();
+	        for(let _x in _left_menus){
+	            if(_left_menus[_x].item.length > 0){
+                    let _html = '<li class="chapter">';
+                    _html += '   <a href="javascript:;" class="' + (parseInt(_left_menus[_x].folder_id) == -1 ? 'default-folder':'') + '" data-type="category" data-id="' + _left_menus[_x].folder_id + '"><i class="fa fa-folder-open-o" aria-hidden="true"></i><strong>' + _left_menus[_x].name + '</strong></a>';
+                    _html += '   <ul class="articles">';
+
+                    for(let _l in _left_menus[_x].item){
+                        if(!_left_menus[_x].item[_l].hasOwnProperty('apiid')){
+                            let _sub_api_html = '';
+                            for(let _s in _left_menus[_x].item[_l].item){
+                                if(_left_menus[_x].item[_l].item[_s].name.indexOf(_keyword) > -1 || _keyword == '') {
+                                    _sub_api_html += '<li class="chapter text-indent-2 ' + (parseInt(_left_menus[_x].item[_l].item[_s].apiid) == _init_apiid ? 'active' : '') + '" data-id="' + _left_menus[_x].item[_l].item[_s].apiid + '"><a class="load-api-btn" href="#' + _left_menus[_x].item[_l].item[_s].apiid + '" data-type="api" data-id="' + _left_menus[_x].item[_l].item[_s].apiid + '"><i class="fa fa-file-text-o" aria-hidden="true"></i>' + _left_menus[_x].item[_l].item[_s].name + ' </a> </li>';
+                                }
+                            }
+
+                            if(_sub_api_html != ''){
+                                _html += '<li class="chapter" data-id="' + _left_menus[_x].item[_l].folder_id + '"><a class="load-sub-btn" href="javascript:;" data-type="api" data-id="' + _left_menus[_x].item[_l].folder_id + '"><i class="fa fa-folder-open-o" aria-hidden="true"></i>' + _left_menus[_x].item[_l].name + ' </a> </li>';
+                                _html += '<ul class="sub-folder-' + _left_menus[_x].item[_l].folder_id + '">';
+                                _html += _sub_api_html;
+                                _html += '</ul>';
+                            }
+                        }else{
+                            if(_left_menus[_x].item[_l].name.indexOf(_keyword) > -1 || _keyword == ''){
+                                _html += '<li class="chapter ' + (parseInt(_left_menus[_x].item[_l].apiid) == _init_apiid ? 'active':'') + '" data-id="' + _left_menus[_x].item[_l].apiid + '"><a class="load-api-btn" href="#' + _left_menus[_x].item[_l].apiid + '" data-type="api" data-id="' + _left_menus[_x].item[_l].apiid + '"><i class="fa fa-file-text-o" aria-hidden="true"></i>' + _left_menus[_x].item[_l].name + ' </a> </li>';
+                            }
+                        }
+                    }
+                    _html += '   </ul>';
+                    _html += '</li>';
+
+                    $('.document-summary').append(_html);
+                }
+	        }
+        }
+	});
+</script>
+<style type="text/css">
+	/*common.css*/
+	*{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;-webkit-overflow-scrolling:touch;-webkit-tap-highlight-color:transparent;-webkit-text-size-adjust:none;-webkit-touch-callout:none;-webkit-font-smoothing:antialiased;font-family:..., "PingFangSC-Regular", "sans-serif", "Hiragino Sans GB", "Microsoft YaHei","WenQuanYi Micro Hei", sans-serif;font-size: .9rem!important ;  outline: none!important;}
+	html{outline: none!important;}
+	body{background:#f5f7fa}
+	a{text-decoration: none}
+	a:hover{text-decoration: none}
+	img{border:0;}
+	a:focus,button:focus{box-shadow: none!important;}
+	table,td,th{table-layout:fixed;word-break:break-all; vertical-align: top}
+
+	/*共用按钮*/
+	/*橙色*/
+	.btn-orange{ background-color: #ff5722!important; border-color: #ff5722!important;color:#fff;}
+	.btn-orange:hover{background-color: #f76b40!important;color:#fff;}
+
+	/*灰色*/
+	.btn-gray{background-color: #e9ecef!important;color: #6c757d!important;}
+	.btn-gray:hover{background-color: #dee2e6!important;color: #6c757d!important;}
+    .load-api-btn{position: relative}
+    .load-api-btn .api-modify-tips{width: 6px;height: 6px;border-radius: 50%;padding: 0!important;background: #dc3545!important;position: absolute!important;left: 25px;top: 8px;display: none}
+    .load-api-btn:hover{color:#dc3545!important;}
+    .api-name-class:hover{text-decoration: none}
+    .api-name-class .btn-gray{margin-left: 15px;padding: 3px 8px;display: inline-block;}
+    .api-name-class .btn-gray:hover{text-decoration: none!important;}
+    /*.text-indent-2{text-indent: 1em}*/
+    .request_raw_body_desc_textarea{width: 100%; border: 0; height: auto}
+	/*弹窗*/
+	.modal.show .modal-dialog{top:180px!important;}
+	.modal-title{font-size: 1.05rem!important}
+	.modal-header {display: -ms-flexbox;display: flex;-ms-flex-align: start;align-items: flex-start;-ms-flex-pack: justify;justify-content: space-between;background-color: #353644;padding: 10px 20px;color: #fff;border-top-left-radius: 0!important;border-top-right-radius: 0!important;}
+	button.close{font-size: 18px!important; color: #fff!important}
+	.modal-mm{max-width: 370px}
+	.modal-body .alert-warning {width: 100%;}
+	/*图标 /*/
+    .markdown-section blockquote{padding: 10px 15px;background: #f7f7f7;}
+	.fa{margin-right:8px}
+
+    /*默认文件夹默认隐藏*/
+    .default-folder{visibility: hidden;margin-top: -38px;}
+    .chapter:hover .default-folder{visibility: visible;margin-top: 0px;}
+    .hidden-value{display: none;}
+</style>
+</head>
+<body>
+<div class="book">
+  	<div class="book-summary">
+    	<div id="book-search-input" role="search">
+      		<input type="text" class="api-search-word" placeholder="输入关键词搜索文档">
+      	</div>
+    	<nav>
+      		<ul class="summary document-summary"></ul>
+    	</nav>
+  	</div>
+  	<div class="book-body">
+    	<div class="no-apis"></div>
+    	<div class="body-inner">
+	      	<div class="book-header">
+		        <div class="dropdown">
+		          	<a class="btn pull-left document-pull-left" href="javascript:;">&nbsp;
+		            	<i class="fa fa-align-justify"></i></a>
+		          	<a class="btn" href="https://console.apipost.cn/doc/createHtml/41053?du_id=0" target="_blank">
+		            	<i class="fa fa-html5" aria-hidden="true"></i>导出HTMl</a>
+		            	<!-- <a class="dropdown-item export-md-btn" href="javascript:;"><i class="fa fa-file-code-o" aria-hidden="true"></i>导出MD</a> -->
+		            <a class="btn export-btn" href="https://console.apipost.cn/doc/createMD/41053?du_id=0" target="_blank">
+		            	<i class="fa fa-file-code-o" aria-hidden="true"></i>导出MarkDown</a>
+		          	<a class="btn export-btn" href="https://console.apipost.cn/doc/createDocx/41053?du_id=0" target="_blank">
+		            	<i class="fa fa-file-word-o" aria-hidden="true"></i>导出Doc</a>
+		            <a class="btn export-btn" href="https://console.apipost.cn/doc/createPdf/41053?du_id=0" target="_blank">
+		            	<i class="fa fa-file-pdf-o" aria-hidden="true"></i>导出Pdf</a>
+		          	<a class="btn export-document-link-btn" href="javascript:;">
+		            	<i class="fa fa-external-link" aria-hidden="true"></i>复制文档地址</a>
+		        </div>
+		        <h1><!-- OAUTH2_TEST接口文档 --></h1>
+	    	</div>
+	    	                        	    	<div class="page-wrapper hide" tabindex="271481" role="main">
+	        	<div class="page-inner">
+	          		<section class="markdown-section">
+	            		<h1 class="api-name-class"><i class="fa fa-link" aria-hidden="true"></i>获取图片验证码 <button  type="button" data-href="https://www.apipost.cn/client.php?project_id=41053&apiid=271481" class="btn btn-gray api-test-send-btn"  data-clipboard-text="{&quot;apiid&quot;:&quot;271481&quot;,&quot;name&quot;:&quot;获取图片验证码&quot;,&quot;url&quot;:&quot;http:\/\/127.0.0.1:9900\/api-auth\/validate\/code\/1388888888&quot;,&quot;method&quot;:&quot;GET&quot;,&quot;mark&quot;:&quot;developing&quot;,&quot;request_type&quot;:&quot;1&quot;,&quot;request_header_ischecked&quot;:&quot;0&quot;,&quot;request_query_ischecked&quot;:&quot;0&quot;,&quot;request_body_ischecked&quot;:&quot;1&quot;,&quot;auth&quot;:[{&quot;auth_type&quot;:&quot;basic_auth&quot;,&quot;basic_user&quot;:&quot;zlt&quot;,&quot;basic_pwd&quot;:&quot;zlt&quot;}],&quot;request_header&quot;:[],&quot;request_query&quot;:[],&quot;request_body&quot;:[{&quot;indent&quot;:&quot;0&quot;,&quot;key&quot;:&quot;&quot;,&quot;value&quot;:&quot;&quot;,&quot;not_null&quot;:&quot;0&quot;,&quot;placeholder&quot;:&quot;参数值&quot;,&quot;type&quot;:&quot;Text&quot;,&quot;description&quot;:&quot;&quot;,&quot;isencode&quot;:&quot;0&quot;,&quot;is_para_checked&quot;:&quot;1&quot;}],&quot;request_raw_body&quot;:&quot;&quot;}"><i class="fa fa-paper-plane-o" aria-hidden="true"></i>接口测试</button> </h1>
+	            			            		<blockquote>
+	            			http://127.0.0.1:9900/api-auth/validate/code/{deviceId}<br />
+根据配置的deviceId判定生成图片验证码	            		</blockquote>
+	            		                        	            		<h4>接口URL</h4>
+	            		<code>http://127.0.0.1:9900/api-auth/validate/code/1388888888</code>
+                        	            		<h4>请求方式</h4>
+	            		<code>GET</code>
+                                                                        	            		<!-- 开始 request_all_header -->
+	            		
+	            		<!-- 开始 request_header -->
+	            		
+	            		<!-- 开始 request_body -->
+                        	            			            			            		<div class="document-block-div request_body-div">
+		            		<h4>请求Body参数</h4>
+		            		<table>
+		              			<thead>
+		                			<tr>
+			                  			<th style="width: 28%">参数</th>
+                                        <th style="width: 30%">示例值</th>
+                                        <th style="width: 7%">必填</th>
+			                  			<th style="width:35%">参数描述</th>
+			                  		</tr>
+		              			</thead>
+		              			<tbody>
+		              						              						              						              			</tbody>
+		            		</table>
+		            	</div>
+	            								                        
+						<!-- 开始 request_Query -->
+	            		
+	            		<!-- 开始 response_header -->
+	            		
+	            		<!-- 开始 response_cookie -->
+	            		
+	            		<!-- 开始 response_body -->
+	            		
+	            		<!-- 开始 response_body_text_ishide -->
+	            		
+	            		<!-- 开始 response_body_error_text -->
+	            			          		</section>
+	        	</div>
+	      	</div>
+            	      	                        	    	<div class="page-wrapper hide" tabindex="271413" role="main">
+	        	<div class="page-inner">
+	          		<section class="markdown-section">
+	            		<h1 class="api-name-class"><i class="fa fa-link" aria-hidden="true"></i>获取手机验证码 <button  type="button" data-href="https://www.apipost.cn/client.php?project_id=41053&apiid=271413" class="btn btn-gray api-test-send-btn"  data-clipboard-text="{&quot;apiid&quot;:&quot;271413&quot;,&quot;name&quot;:&quot;获取手机验证码&quot;,&quot;url&quot;:&quot;http:\/\/127.0.0.1:9900\/api-auth\/validate\/smsCode\/18888888888&quot;,&quot;method&quot;:&quot;GET&quot;,&quot;mark&quot;:&quot;developing&quot;,&quot;request_type&quot;:&quot;1&quot;,&quot;request_header_ischecked&quot;:&quot;0&quot;,&quot;request_query_ischecked&quot;:&quot;0&quot;,&quot;request_body_ischecked&quot;:&quot;0&quot;,&quot;auth&quot;:[{&quot;auth_type&quot;:&quot;basic_auth&quot;,&quot;basic_user&quot;:&quot;user&quot;,&quot;basic_pwd&quot;:&quot;06379aea-4cad-4f05-b36c-3e33c63b2867&quot;}],&quot;request_header&quot;:[],&quot;request_query&quot;:[],&quot;request_body&quot;:[{&quot;indent&quot;:&quot;0&quot;,&quot;key&quot;:&quot;&quot;,&quot;value&quot;:&quot;&quot;,&quot;not_null&quot;:&quot;0&quot;,&quot;placeholder&quot;:&quot;参数值&quot;,&quot;type&quot;:&quot;Text&quot;,&quot;description&quot;:&quot;&quot;,&quot;isencode&quot;:&quot;0&quot;,&quot;is_para_checked&quot;:&quot;1&quot;}],&quot;request_raw_body&quot;:&quot;&quot;}"><i class="fa fa-paper-plane-o" aria-hidden="true"></i>接口测试</button> </h1>
+	            			            		<blockquote>
+	            			http://127.0.0.1:9900/api-auth/validate/smsCode/{mobile}<br />
+手机验证码登录 根据mobile是生成验证码	            		</blockquote>
+	            		                        	            		<h4>接口URL</h4>
+	            		<code>http://127.0.0.1:9900/api-auth/validate/smsCode/18888888888</code>
+                        	            		<h4>请求方式</h4>
+	            		<code>GET</code>
+                                                                        	            		<!-- 开始 request_all_header -->
+	            		
+	            		<!-- 开始 request_header -->
+	            		
+	            		<!-- 开始 request_body -->
+                        	            			            			            		<div class="document-block-div request_body-div">
+		            		<h4>请求Body参数</h4>
+		            		<table>
+		              			<thead>
+		                			<tr>
+			                  			<th style="width: 28%">参数</th>
+                                        <th style="width: 30%">示例值</th>
+                                        <th style="width: 7%">必填</th>
+			                  			<th style="width:35%">参数描述</th>
+			                  		</tr>
+		              			</thead>
+		              			<tbody>
+		              						              						              						              			</tbody>
+		            		</table>
+		            	</div>
+	            								                        
+						<!-- 开始 request_Query -->
+	            		
+	            		<!-- 开始 response_header -->
+	            		
+	            		<!-- 开始 response_cookie -->
+	            		
+	            		<!-- 开始 response_body -->
+	            		
+	            		<!-- 开始 response_body_text_ishide -->
+	            			            		<h4>成功响应示例</h4>
+	            		<pre><code>{
+    "code": 0,
+    "msg": "true"
+}</code></pre>
+	            		
+	            		<!-- 开始 response_body_error_text -->
+	            			            		<h4>失败响应示例</h4>
+	            		<pre><code>{
+    "code": 1,
+    "msg": "验证码未失效，请失效后再次申请"
+}</code></pre>
+	            			          		</section>
+	        	</div>
+	      	</div>
+            	      	                        	    	<div class="page-wrapper hide" tabindex="255079" role="main">
+	        	<div class="page-inner">
+	          		<section class="markdown-section">
+	            		<h1 class="api-name-class"><i class="fa fa-link" aria-hidden="true"></i>OAuth2 默认password登陆 <button  type="button" data-href="https://www.apipost.cn/client.php?project_id=41053&apiid=255079" class="btn btn-gray api-test-send-btn"  data-clipboard-text="{&quot;apiid&quot;:&quot;255079&quot;,&quot;name&quot;:&quot;OAuth2 默认password登陆&quot;,&quot;url&quot;:&quot;http:\/\/127.0.0.1:9900\/oauth\/token?grant_type=password&username=admin&password=admin&scope=all&quot;,&quot;method&quot;:&quot;POST&quot;,&quot;mark&quot;:&quot;developing&quot;,&quot;request_type&quot;:&quot;2&quot;,&quot;request_header_ischecked&quot;:&quot;1&quot;,&quot;request_query_ischecked&quot;:&quot;1&quot;,&quot;request_body_ischecked&quot;:&quot;0&quot;,&quot;auth&quot;:[{&quot;auth_type&quot;:&quot;no_auth&quot;}],&quot;request_header&quot;:[{&quot;key&quot;:&quot;Authorization&quot;,&quot;value&quot;:&quot;Basic emx0OnpsdA==&quot;,&quot;description&quot;:&quot;认证客户端请求头     Base64加密 (zlt:zlt)&quot;,&quot;placeholder&quot;:&quot;参数值&quot;,&quot;type&quot;:&quot;Text&quot;,&quot;not_null&quot;:&quot;0&quot;,&quot;is_para_checked&quot;:&quot;1&quot;,&quot;indent&quot;:&quot;0&quot;}],&quot;request_query&quot;:[{&quot;description&quot;:&quot;OAuth2默认的password认证&quot;,&quot;indent&quot;:&quot;0&quot;,&quot;is_para_checked&quot;:&quot;1&quot;,&quot;isencode&quot;:&quot;0&quot;,&quot;key&quot;:&quot;grant_type&quot;,&quot;not_null&quot;:&quot;0&quot;,&quot;placeholder&quot;:&quot;参数值&quot;,&quot;type&quot;:&quot;Text&quot;,&quot;value&quot;:&quot;password&quot;},{&quot;description&quot;:&quot;username&quot;,&quot;indent&quot;:&quot;0&quot;,&quot;is_para_checked&quot;:&quot;1&quot;,&quot;isencode&quot;:&quot;0&quot;,&quot;key&quot;:&quot;username&quot;,&quot;not_null&quot;:&quot;0&quot;,&quot;placeholder&quot;:&quot;参数值&quot;,&quot;type&quot;:&quot;Text&quot;,&quot;value&quot;:&quot;admin&quot;},{&quot;description&quot;:&quot;password&quot;,&quot;indent&quot;:&quot;0&quot;,&quot;is_para_checked&quot;:&quot;1&quot;,&quot;isencode&quot;:&quot;0&quot;,&quot;key&quot;:&quot;password&quot;,&quot;not_null&quot;:&quot;0&quot;,&quot;placeholder&quot;:&quot;参数值&quot;,&quot;type&quot;:&quot;Text&quot;,&quot;value&quot;:&quot;admin&quot;},{&quot;indent&quot;:&quot;0&quot;,&quot;key&quot;:&quot;scope&quot;,&quot;value&quot;:&quot;all&quot;,&quot;not_null&quot;:&quot;1&quot;,&quot;placeholder&quot;:&quot;参数值&quot;,&quot;type&quot;:&quot;Text&quot;,&quot;description&quot;:&quot;scope&quot;,&quot;isencode&quot;:&quot;0&quot;,&quot;is_para_checked&quot;:&quot;1&quot;}],&quot;request_body&quot;:[],&quot;request_raw_body&quot;:&quot;[]&quot;}"><i class="fa fa-paper-plane-o" aria-hidden="true"></i>接口测试</button> </h1>
+	            		                        	            		<h4>接口URL</h4>
+	            		<code>http://127.0.0.1:9900/oauth/token?grant_type=password&amp;username=admin&amp;password=admin&amp;scope=all</code>
+                        	            		<h4>请求方式</h4>
+	            		<code>POST</code>
+                                                                            <h4>请求 Content-Type</h4>
+                            <code>application/x-www-form-urlencoded</code>
+                                                	            		<!-- 开始 request_all_header -->
+	            		
+	            		<!-- 开始 request_header -->
+	            			            		<div class="document-block-div request_header-div">
+		            		<h4>请求自定义Header</h4>
+		            		<table>
+		              			<thead>
+		                			<tr>
+			                  			<th style="width: 28%">参数</th>
+			                  			<th style="width: 30%">示例值</th>
+                                        <th style="width: 7%">必填</th>
+			                  			<th style="width:35%">参数描述</th>
+			                  		</tr>
+		              			</thead>
+		              			<tbody>
+		              						              						              				<tr>
+			                  			<th>Authorization</th>
+			                  			<td>Basic emx0OnpsdA==</td>
+                                        <td>必填</td>
+			                  			<td>认证客户端请求头     Base64加密 (zlt:zlt)</td>
+			                  		</tr>
+			                  				              						              			</tbody>
+		            		</table>
+		            	</div>
+	            		
+	            		<!-- 开始 request_body -->
+                        	            			            								                        
+						<!-- 开始 request_Query -->
+	            			            		<div class="document-block-div request_query-div">
+		            		<h4>请求Query参数</h4>
+		            		<table>
+		              			<thead>
+		                			<tr>
+			                  			<th style="width: 28%">参数</th>
+                                        <th style="width: 30%">示例值</th>
+                                        <th style="width: 7%">必填</th>
+			                  			<th style="width:35%">参数描述</th>
+			                  		</tr>
+		              			</thead>
+		              			<tbody>
+		              						              						              				<tr>
+			                  			<th>grant_type</th>
+			                  			<td>password</td>
+                                        <td>必填</td>
+			                  			<td>OAuth2默认的password认证</td>
+			                  		</tr>
+			                  				              						              						              				<tr>
+			                  			<th>username</th>
+			                  			<td>admin</td>
+                                        <td>必填</td>
+			                  			<td>username</td>
+			                  		</tr>
+			                  				              						              						              				<tr>
+			                  			<th>password</th>
+			                  			<td>admin</td>
+                                        <td>必填</td>
+			                  			<td>password</td>
+			                  		</tr>
+			                  				              						              						              				<tr>
+			                  			<th>scope</th>
+			                  			<td>all</td>
+                                        <td>选填</td>
+			                  			<td>scope</td>
+			                  		</tr>
+			                  				              						              			</tbody>
+		            		</table>
+		            	</div>
+	            		
+	            		<!-- 开始 response_header -->
+	            		
+	            		<!-- 开始 response_cookie -->
+	            		
+	            		<!-- 开始 response_body -->
+	            		
+	            		<!-- 开始 response_body_text_ishide -->
+	            			            		<h4>成功响应示例</h4>
+	            		<pre><code>{
+    "access_token": "a613ef85-3fc6-4be6-ae57-16aebf5a3781",
+    "token_type": "bearer",
+    "refresh_token": "d7fa4b91-f86e-4c0e-9c83-aab847ddf541",
+    "expires_in": 3453,
+    "scope": "all"
+}</code></pre>
+	            		
+	            		<!-- 开始 response_body_error_text -->
+	            			            		<h4>失败响应示例</h4>
+	            		<pre><code>{
+    "error": "unsupported_response_type",
+    "error_description": "服务内部错误",
+    "resp_code": "400",
+    "resp_msg": "服务内部错误"
+}</code></pre>
+	            			          		</section>
+	        	</div>
+	      	</div>
+            	      	                        	    	<div class="page-wrapper hide" tabindex="271398" role="main">
+	        	<div class="page-inner">
+	          		<section class="markdown-section">
+	            		<h1 class="api-name-class"><i class="fa fa-link" aria-hidden="true"></i>自定义openid登陆 <button  type="button" data-href="https://www.apipost.cn/client.php?project_id=41053&apiid=271398" class="btn btn-gray api-test-send-btn"  data-clipboard-text="{&quot;apiid&quot;:&quot;271398&quot;,&quot;name&quot;:&quot;自定义openid登陆&quot;,&quot;url&quot;:&quot;http:\/\/127.0.0.1:9900\/api-auth\/oauth\/openId\/token?openId=123&quot;,&quot;method&quot;:&quot;POST&quot;,&quot;mark&quot;:&quot;developing&quot;,&quot;request_type&quot;:&quot;2&quot;,&quot;request_header_ischecked&quot;:&quot;1&quot;,&quot;request_query_ischecked&quot;:&quot;1&quot;,&quot;request_body_ischecked&quot;:&quot;0&quot;,&quot;auth&quot;:[{&quot;auth_type&quot;:&quot;no_auth&quot;}],&quot;request_header&quot;:[{&quot;key&quot;:&quot;Authorization&quot;,&quot;value&quot;:&quot;Basic emx0OnpsdA==&quot;,&quot;description&quot;:&quot;认证客户端请求头     Base64加密 (zlt:zlt)&quot;,&quot;placeholder&quot;:&quot;参数值&quot;,&quot;type&quot;:&quot;Text&quot;,&quot;not_null&quot;:&quot;0&quot;,&quot;is_para_checked&quot;:&quot;1&quot;,&quot;indent&quot;:&quot;0&quot;}],&quot;request_query&quot;:[{&quot;key&quot;:&quot;openId&quot;,&quot;value&quot;:&quot;123&quot;,&quot;description&quot;:&quot;openId&quot;,&quot;placeholder&quot;:&quot;参数值&quot;,&quot;type&quot;:&quot;Text&quot;,&quot;not_null&quot;:&quot;0&quot;,&quot;is_para_checked&quot;:&quot;1&quot;,&quot;indent&quot;:&quot;0&quot;}],&quot;request_body&quot;:[{&quot;description&quot;:&quot;&quot;,&quot;indent&quot;:&quot;0&quot;,&quot;key&quot;:&quot;&quot;,&quot;not_null&quot;:&quot;0&quot;,&quot;placeholder&quot;:&quot;参数描述，用于生成文档&quot;,&quot;type&quot;:&quot;Text&quot;,&quot;value&quot;:&quot;&quot;,&quot;is_para_checked&quot;:&quot;1&quot;}],&quot;request_raw_body&quot;:&quot;&quot;}"><i class="fa fa-paper-plane-o" aria-hidden="true"></i>接口测试</button> </h1>
+	            			            		<blockquote>
+	            			自定义使用openid登陆	            		</blockquote>
+	            		                        	            		<h4>接口URL</h4>
+	            		<code>http://127.0.0.1:9900/api-auth/oauth/openId/token?openId=123</code>
+                        	            		<h4>请求方式</h4>
+	            		<code>POST</code>
+                                                                            <h4>请求 Content-Type</h4>
+                            <code>application/x-www-form-urlencoded</code>
+                                                	            		<!-- 开始 request_all_header -->
+	            		
+	            		<!-- 开始 request_header -->
+	            			            		<div class="document-block-div request_header-div">
+		            		<h4>请求自定义Header</h4>
+		            		<table>
+		              			<thead>
+		                			<tr>
+			                  			<th style="width: 28%">参数</th>
+			                  			<th style="width: 30%">示例值</th>
+                                        <th style="width: 7%">必填</th>
+			                  			<th style="width:35%">参数描述</th>
+			                  		</tr>
+		              			</thead>
+		              			<tbody>
+		              						              						              				<tr>
+			                  			<th>Authorization</th>
+			                  			<td>Basic emx0OnpsdA==</td>
+                                        <td>必填</td>
+			                  			<td>认证客户端请求头     Base64加密 (zlt:zlt)</td>
+			                  		</tr>
+			                  				              						              			</tbody>
+		            		</table>
+		            	</div>
+	            		
+	            		<!-- 开始 request_body -->
+                        	            			            			            		<div class="document-block-div request_body-div">
+		            		<h4>请求Body参数</h4>
+		            		<table>
+		              			<thead>
+		                			<tr>
+			                  			<th style="width: 28%">参数</th>
+                                        <th style="width: 30%">示例值</th>
+                                        <th style="width: 7%">必填</th>
+			                  			<th style="width:35%">参数描述</th>
+			                  		</tr>
+		              			</thead>
+		              			<tbody>
+		              						              						              						              			</tbody>
+		            		</table>
+		            	</div>
+	            								                        
+						<!-- 开始 request_Query -->
+	            			            		<div class="document-block-div request_query-div">
+		            		<h4>请求Query参数</h4>
+		            		<table>
+		              			<thead>
+		                			<tr>
+			                  			<th style="width: 28%">参数</th>
+                                        <th style="width: 30%">示例值</th>
+                                        <th style="width: 7%">必填</th>
+			                  			<th style="width:35%">参数描述</th>
+			                  		</tr>
+		              			</thead>
+		              			<tbody>
+		              						              						              				<tr>
+			                  			<th>openId</th>
+			                  			<td>123</td>
+                                        <td>必填</td>
+			                  			<td>openId</td>
+			                  		</tr>
+			                  				              						              			</tbody>
+		            		</table>
+		            	</div>
+	            		
+	            		<!-- 开始 response_header -->
+	            		
+	            		<!-- 开始 response_cookie -->
+	            		
+	            		<!-- 开始 response_body -->
+	            		
+	            		<!-- 开始 response_body_text_ishide -->
+	            			            		<h4>成功响应示例</h4>
+	            		<pre><code>{
+    "data": {
+        "access_token": "a613ef85-3fc6-4be6-ae57-16aebf5a3781",
+        "token_type": "bearer",
+        "refresh_token": "d7fa4b91-f86e-4c0e-9c83-aab847ddf541",
+        "expires_in": 3521,
+        "scope": "all"
+    },
+    "code": 0,
+    "msg": ""
+}</code></pre>
+	            		
+	            		<!-- 开始 response_body_error_text -->
+	            			            		<h4>失败响应示例</h4>
+	            		<pre><code>{
+    "code": 1,
+    "msg": "openId错误"
+}</code></pre>
+	            			          		</section>
+	        	</div>
+	      	</div>
+            	      	                        	    	<div class="page-wrapper hide" tabindex="270130" role="main">
+	        	<div class="page-inner">
+	          		<section class="markdown-section">
+	            		<h1 class="api-name-class"><i class="fa fa-link" aria-hidden="true"></i>自定义password登陆 <button  type="button" data-href="https://www.apipost.cn/client.php?project_id=41053&apiid=270130" class="btn btn-gray api-test-send-btn"  data-clipboard-text="{&quot;apiid&quot;:&quot;270130&quot;,&quot;name&quot;:&quot;自定义password登陆&quot;,&quot;url&quot;:&quot;http:\/\/127.0.0.1:9900\/api-auth\/oauth\/user\/token?username=admin&password=admin&deviceId=1388888888&validCode=pscz&quot;,&quot;method&quot;:&quot;POST&quot;,&quot;mark&quot;:&quot;developing&quot;,&quot;request_type&quot;:&quot;2&quot;,&quot;request_header_ischecked&quot;:&quot;1&quot;,&quot;request_query_ischecked&quot;:&quot;1&quot;,&quot;request_body_ischecked&quot;:&quot;0&quot;,&quot;auth&quot;:[{&quot;auth_type&quot;:&quot;basic_auth&quot;,&quot;basic_user&quot;:&quot;zlt&quot;,&quot;basic_pwd&quot;:&quot;zlt&quot;}],&quot;request_header&quot;:[{&quot;key&quot;:&quot;Authorization&quot;,&quot;value&quot;:&quot;Basic emx0OnpsdA==&quot;,&quot;description&quot;:&quot;认证客户端请求头     Base64加密 (zlt:zlt)&quot;,&quot;placeholder&quot;:&quot;参数值&quot;,&quot;type&quot;:&quot;Text&quot;,&quot;not_null&quot;:&quot;0&quot;,&quot;is_para_checked&quot;:&quot;1&quot;,&quot;indent&quot;:&quot;0&quot;}],&quot;request_query&quot;:[{&quot;key&quot;:&quot;username&quot;,&quot;value&quot;:&quot;admin&quot;,&quot;description&quot;:&quot;username&quot;,&quot;placeholder&quot;:&quot;参数值&quot;,&quot;type&quot;:&quot;Text&quot;,&quot;not_null&quot;:&quot;0&quot;,&quot;is_para_checked&quot;:&quot;1&quot;,&quot;indent&quot;:&quot;0&quot;},{&quot;key&quot;:&quot;password&quot;,&quot;value&quot;:&quot;admin&quot;,&quot;description&quot;:&quot;password&quot;,&quot;placeholder&quot;:&quot;参数值&quot;,&quot;type&quot;:&quot;Text&quot;,&quot;not_null&quot;:&quot;0&quot;,&quot;is_para_checked&quot;:&quot;1&quot;,&quot;indent&quot;:&quot;0&quot;},{&quot;key&quot;:&quot;deviceId&quot;,&quot;value&quot;:&quot;1388888888&quot;,&quot;description&quot;:&quot;前端唯一表示deviceId\/mobile&quot;,&quot;placeholder&quot;:&quot;参数值&quot;,&quot;type&quot;:&quot;Text&quot;,&quot;not_null&quot;:&quot;0&quot;,&quot;is_para_checked&quot;:&quot;1&quot;,&quot;indent&quot;:&quot;0&quot;},{&quot;key&quot;:&quot;validCode&quot;,&quot;value&quot;:&quot;pscz&quot;,&quot;description&quot;:&quot;图片验证&quot;,&quot;placeholder&quot;:&quot;参数值&quot;,&quot;type&quot;:&quot;Text&quot;,&quot;not_null&quot;:&quot;0&quot;,&quot;is_para_checked&quot;:&quot;1&quot;,&quot;indent&quot;:&quot;0&quot;}],&quot;request_body&quot;:[{&quot;description&quot;:&quot;&quot;,&quot;indent&quot;:&quot;0&quot;,&quot;key&quot;:&quot;&quot;,&quot;not_null&quot;:&quot;0&quot;,&quot;placeholder&quot;:&quot;参数描述，用于生成文档&quot;,&quot;type&quot;:&quot;Text&quot;,&quot;value&quot;:&quot;&quot;,&quot;is_para_checked&quot;:&quot;1&quot;}],&quot;request_raw_body&quot;:&quot;&quot;}"><i class="fa fa-paper-plane-o" aria-hidden="true"></i>接口测试</button> </h1>
+	            			            		<blockquote>
+	            			自定义pasword登陆	            		</blockquote>
+	            		                        	            		<h4>接口URL</h4>
+	            		<code>http://127.0.0.1:9900/api-auth/oauth/user/token?username=admin&amp;password=admin&amp;deviceId=1388888888&amp;validCode=pscz</code>
+                        	            		<h4>请求方式</h4>
+	            		<code>POST</code>
+                                                                            <h4>请求 Content-Type</h4>
+                            <code>application/x-www-form-urlencoded</code>
+                                                	            		<!-- 开始 request_all_header -->
+	            		
+	            		<!-- 开始 request_header -->
+	            			            		<div class="document-block-div request_header-div">
+		            		<h4>请求自定义Header</h4>
+		            		<table>
+		              			<thead>
+		                			<tr>
+			                  			<th style="width: 28%">参数</th>
+			                  			<th style="width: 30%">示例值</th>
+                                        <th style="width: 7%">必填</th>
+			                  			<th style="width:35%">参数描述</th>
+			                  		</tr>
+		              			</thead>
+		              			<tbody>
+		              						              						              				<tr>
+			                  			<th>Authorization</th>
+			                  			<td>Basic emx0OnpsdA==</td>
+                                        <td>必填</td>
+			                  			<td>认证客户端请求头     Base64加密 (zlt:zlt)</td>
+			                  		</tr>
+			                  				              						              			</tbody>
+		            		</table>
+		            	</div>
+	            		
+	            		<!-- 开始 request_body -->
+                        	            			            			            		<div class="document-block-div request_body-div">
+		            		<h4>请求Body参数</h4>
+		            		<table>
+		              			<thead>
+		                			<tr>
+			                  			<th style="width: 28%">参数</th>
+                                        <th style="width: 30%">示例值</th>
+                                        <th style="width: 7%">必填</th>
+			                  			<th style="width:35%">参数描述</th>
+			                  		</tr>
+		              			</thead>
+		              			<tbody>
+		              						              						              						              			</tbody>
+		            		</table>
+		            	</div>
+	            								                        
+						<!-- 开始 request_Query -->
+	            			            		<div class="document-block-div request_query-div">
+		            		<h4>请求Query参数</h4>
+		            		<table>
+		              			<thead>
+		                			<tr>
+			                  			<th style="width: 28%">参数</th>
+                                        <th style="width: 30%">示例值</th>
+                                        <th style="width: 7%">必填</th>
+			                  			<th style="width:35%">参数描述</th>
+			                  		</tr>
+		              			</thead>
+		              			<tbody>
+		              						              						              				<tr>
+			                  			<th>username</th>
+			                  			<td>admin</td>
+                                        <td>必填</td>
+			                  			<td>username</td>
+			                  		</tr>
+			                  				              						              						              				<tr>
+			                  			<th>password</th>
+			                  			<td>admin</td>
+                                        <td>必填</td>
+			                  			<td>password</td>
+			                  		</tr>
+			                  				              						              						              				<tr>
+			                  			<th>deviceId</th>
+			                  			<td>1388888888</td>
+                                        <td>必填</td>
+			                  			<td>前端唯一表示deviceId/mobile</td>
+			                  		</tr>
+			                  				              						              						              				<tr>
+			                  			<th>validCode</th>
+			                  			<td>pscz</td>
+                                        <td>必填</td>
+			                  			<td>图片验证</td>
+			                  		</tr>
+			                  				              						              			</tbody>
+		            		</table>
+		            	</div>
+	            		
+	            		<!-- 开始 response_header -->
+	            		
+	            		<!-- 开始 response_cookie -->
+	            		
+	            		<!-- 开始 response_body -->
+	            		
+	            		<!-- 开始 response_body_text_ishide -->
+	            			            		<h4>成功响应示例</h4>
+	            		<pre><code>{
+    "data": {
+        "access_token": "a613ef85-3fc6-4be6-ae57-16aebf5a3781",
+        "token_type": "bearer",
+        "refresh_token": "d7fa4b91-f86e-4c0e-9c83-aab847ddf541",
+        "expires_in": 3599,
+        "scope": "all"
+    },
+    "code": 0,
+    "msg": ""
+}</code></pre>
+	            		
+	            		<!-- 开始 response_body_error_text -->
+	            			            		<h4>失败响应示例</h4>
+	            		<pre><code>{
+    "code": 401,
+    "msg": "验证码不存在或已过期"
+}</code></pre>
+	            			          		</section>
+	        	</div>
+	      	</div>
+            	      	                        	    	<div class="page-wrapper hide" tabindex="273674" role="main">
+	        	<div class="page-inner">
+	          		<section class="markdown-section">
+	            		<h1 class="api-name-class"><i class="fa fa-link" aria-hidden="true"></i>自定义手机验证码登录 <button  type="button" data-href="https://www.apipost.cn/client.php?project_id=41053&apiid=273674" class="btn btn-gray api-test-send-btn"  data-clipboard-text="{&quot;apiid&quot;:&quot;273674&quot;,&quot;name&quot;:&quot;自定义手机验证码登录&quot;,&quot;url&quot;:&quot;http:\/\/127.0.0.1:9900\/api-auth\/oauth\/sms\/token?mobile=18888888888&smsCode=6027&quot;,&quot;method&quot;:&quot;POST&quot;,&quot;mark&quot;:&quot;developing&quot;,&quot;request_type&quot;:&quot;2&quot;,&quot;request_header_ischecked&quot;:&quot;1&quot;,&quot;request_query_ischecked&quot;:&quot;1&quot;,&quot;request_body_ischecked&quot;:&quot;0&quot;,&quot;auth&quot;:[{&quot;auth_type&quot;:&quot;no_auth&quot;}],&quot;request_header&quot;:[{&quot;key&quot;:&quot;Authorization&quot;,&quot;value&quot;:&quot;Basic emx0OnpsdA==&quot;,&quot;description&quot;:&quot;认证客户端请求头     Base64加密 (zlt:zlt)&quot;,&quot;placeholder&quot;:&quot;参数值&quot;,&quot;type&quot;:&quot;Text&quot;,&quot;not_null&quot;:&quot;0&quot;,&quot;is_para_checked&quot;:&quot;1&quot;,&quot;indent&quot;:&quot;0&quot;}],&quot;request_query&quot;:[{&quot;key&quot;:&quot;mobile&quot;,&quot;value&quot;:&quot;18888888888&quot;,&quot;description&quot;:&quot;手机号&quot;,&quot;placeholder&quot;:&quot;参数值&quot;,&quot;type&quot;:&quot;Text&quot;,&quot;not_null&quot;:&quot;0&quot;,&quot;is_para_checked&quot;:&quot;1&quot;,&quot;indent&quot;:&quot;0&quot;},{&quot;key&quot;:&quot;smsCode&quot;,&quot;value&quot;:&quot;6027&quot;,&quot;description&quot;:&quot;手机验证码&quot;,&quot;placeholder&quot;:&quot;参数值&quot;,&quot;type&quot;:&quot;Text&quot;,&quot;not_null&quot;:&quot;0&quot;,&quot;is_para_checked&quot;:&quot;1&quot;,&quot;indent&quot;:&quot;0&quot;}],&quot;request_body&quot;:[{&quot;description&quot;:&quot;&quot;,&quot;indent&quot;:&quot;0&quot;,&quot;key&quot;:&quot;&quot;,&quot;not_null&quot;:&quot;0&quot;,&quot;placeholder&quot;:&quot;参数描述，用于生成文档&quot;,&quot;type&quot;:&quot;Text&quot;,&quot;value&quot;:&quot;&quot;,&quot;is_para_checked&quot;:&quot;1&quot;}],&quot;request_raw_body&quot;:&quot;&quot;}"><i class="fa fa-paper-plane-o" aria-hidden="true"></i>接口测试</button> </h1>
+	            			            		<blockquote>
+	            			自定义使用手机验证码登陆	            		</blockquote>
+	            		                        	            		<h4>接口URL</h4>
+	            		<code>http://127.0.0.1:9900/api-auth/oauth/sms/token?mobile=18888888888&amp;smsCode=6027</code>
+                        	            		<h4>请求方式</h4>
+	            		<code>POST</code>
+                                                                            <h4>请求 Content-Type</h4>
+                            <code>Array</code>
+                                                	            		<!-- 开始 request_all_header -->
+	            		
+	            		<!-- 开始 request_header -->
+	            			            		<div class="document-block-div request_header-div">
+		            		<h4>请求自定义Header</h4>
+		            		<table>
+		              			<thead>
+		                			<tr>
+			                  			<th style="width: 28%">参数</th>
+			                  			<th style="width: 30%">示例值</th>
+                                        <th style="width: 7%">必填</th>
+			                  			<th style="width:35%">参数描述</th>
+			                  		</tr>
+		              			</thead>
+		              			<tbody>
+		              						              						              				<tr>
+			                  			<th>Authorization</th>
+			                  			<td>Basic emx0OnpsdA==</td>
+                                        <td>必填</td>
+			                  			<td>认证客户端请求头     Base64加密 (zlt:zlt)</td>
+			                  		</tr>
+			                  				              						              			</tbody>
+		            		</table>
+		            	</div>
+	            		
+	            		<!-- 开始 request_body -->
+                        	            			            			            		<div class="document-block-div request_body-div">
+		            		<h4>请求Body参数</h4>
+		            		<table>
+		              			<thead>
+		                			<tr>
+			                  			<th style="width: 28%">参数</th>
+                                        <th style="width: 30%">示例值</th>
+                                        <th style="width: 7%">必填</th>
+			                  			<th style="width:35%">参数描述</th>
+			                  		</tr>
+		              			</thead>
+		              			<tbody>
+		              						              						              						              			</tbody>
+		            		</table>
+		            	</div>
+	            								                        
+						<!-- 开始 request_Query -->
+	            			            		<div class="document-block-div request_query-div">
+		            		<h4>请求Query参数</h4>
+		            		<table>
+		              			<thead>
+		                			<tr>
+			                  			<th style="width: 28%">参数</th>
+                                        <th style="width: 30%">示例值</th>
+                                        <th style="width: 7%">必填</th>
+			                  			<th style="width:35%">参数描述</th>
+			                  		</tr>
+		              			</thead>
+		              			<tbody>
+		              						              						              				<tr>
+			                  			<th>mobile</th>
+			                  			<td>18888888888</td>
+                                        <td>必填</td>
+			                  			<td>手机号</td>
+			                  		</tr>
+			                  				              						              						              				<tr>
+			                  			<th>smsCode</th>
+			                  			<td>6027</td>
+                                        <td>必填</td>
+			                  			<td>手机验证码</td>
+			                  		</tr>
+			                  				              						              			</tbody>
+		            		</table>
+		            	</div>
+	            		
+	            		<!-- 开始 response_header -->
+	            		
+	            		<!-- 开始 response_cookie -->
+	            		
+	            		<!-- 开始 response_body -->
+	            		
+	            		<!-- 开始 response_body_text_ishide -->
+	            			            		<h4>成功响应示例</h4>
+	            		<pre><code>{
+    "data": {
+        "access_token": "e5f1e284-b105-47b4-881e-e2c936cea275",
+        "token_type": "bearer",
+        "refresh_token": "b353f1bd-d3a8-4510-8231-d2a2cb61ee40",
+        "expires_in": 3599,
+        "scope": "all"
+    },
+    "code": 0,
+    "msg": ""
+}</code></pre>
+	            		
+	            		<!-- 开始 response_body_error_text -->
+	            			            		<h4>失败响应示例</h4>
+	            		<pre><code>{
+    "code": 401,
+    "msg": "验证码不存在或已过期"
+}</code></pre>
+	            			          		</section>
+	        	</div>
+	      	</div>
+            	      		      	<footer>
+	      		本文档由<a href="https://www.apipost.cn/?fr=doc" target="_blank">APIPOST接口调试与管理工具</a>生成
+	      	</footer>
+	    </div>
+	    <a href="javascript:;" class="navigation navigation-prev">
+	      	<i class="fa fa-angle-left" aria-hidden="true"></i>
+	    </a>
+	    <a href="javascript:;" class="navigation navigation-next" style="margin-right: 17px;">
+	      	<i class="fa fa-angle-right" aria-hidden="true"></i>
+	    </a>
+	</div>
+</div>
+<!-- 百度统计 -->
+<script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "https://hm.baidu.com/hm.js?a046ce178828e393614822a297b8d296";
+	  var s = document.getElementsByTagName("script")[0];
+	  s.parentNode.insertBefore(hm, s);
+	})();
+</script>
+<span style="display: none;"><script type="text/javascript" src="https://s23.cnzz.com/z_stat.php?id=1276797738&web_id=1276797738"></script></span>
+</body>
+</html>
